@@ -1,0 +1,33 @@
+{
+    "name": "Player Controls",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "25413bd1-71d1-4543-8af4-b14aa6f0efc3",
+            "actions": [
+                {
+                    "name": "Jump(Space Bar)",
+                    "type": "Button",
+                    "id": "431a67b0-198e-463d-9806-bfac218b63e1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c3441c75-e9f1-469f-8491-6937e20588ef",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump(Space Bar)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
