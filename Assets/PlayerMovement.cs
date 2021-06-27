@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     //Editor Game object links
     public Rigidbody2D rigBody;
+    public BoxCollider2D groundCheckCollider;
     public BoxCollider2D groundCollider;
     //end** Editor Game object links **end
 
@@ -36,22 +37,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (grounded == true)
+        if (groundCheckCollider.IsTouching(groundCollider))
         {
             rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
-            grounded = false;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (grounded == false)
-        {
-            if(collision.tag.ToString() == "ground")
-
-            grounded = true;
-        }    
-    }
 
 
 
