@@ -12,12 +12,13 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private bool grounded;
-    
+
     public float jumpForce = 7.75f;
+    public float pushSpeed = 50.0f;
     public ForceMode2D jumpMode = ForceMode2D.Impulse;
 
-    
-    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,13 +27,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           
+
     }
 
     void FixedUpdate()
     {
-        
-       
+
+
     }
 
     public void Jump()
@@ -41,6 +42,15 @@ public class PlayerMovement : MonoBehaviour
         {
             rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
         }
+    }
+
+    public void MoveHorizontal(int direction)
+    {
+        /*Vector2 currPos = transform.position;
+        currPos += new Vector2(speed*Time.deltaTime, 0.0f);
+        transform.position = currPos;*/
+
+        rigBody.AddForce(new Vector2(direction* pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
     }
 
 
