@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D rigBody;
     public BoxCollider2D groundCheckCollider;
     public BoxCollider2D groundCollider;
+    public Animator anim;
     //end** Editor Game object links **end
 
     [SerializeField]
@@ -15,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float jumpForce = 7.75f;
     public float pushSpeed = 50.0f;
+    public float velocity = 0.0f;
     public ForceMode2D jumpMode = ForceMode2D.Impulse;
 
 
@@ -32,8 +34,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+            velocity = rigBody.velocity.y;
+            anim.SetFloat("Y Velocity", velocity);
+        if (!grounded && velocity <= 0 && groundCheckCollider.IsTouching(groundCollider))
+        {
+            grounded = true;
 
-
+        }
+        anim.SetBool("Grounded", grounded);
     }
 
     public void Jump()
@@ -41,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if (groundCheckCollider.IsTouching(groundCollider))
         {
             rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
+            grounded = false;
         }
     }
 
