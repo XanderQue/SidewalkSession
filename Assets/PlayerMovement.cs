@@ -29,19 +29,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        GroundUpdate();
     }
 
-    void FixedUpdate()
+    void GroundUpdate()
     {
-            velocity = rigBody.velocity.y;
-            anim.SetFloat("Y Velocity", velocity);
-        if (!grounded && velocity <= 0 && groundCheckCollider.IsTouching(groundCollider))
+        velocity = rigBody.velocity.y;
+        anim.SetFloat("Y Velocity", velocity);
+        if (!grounded && rigBody.velocity.y < 0.0f)
         {
-            grounded = true;
+            if(groundCheckCollider.IsTouching(groundCollider))
+            {
+                rigBody.velocity.Set(0.0f, 0.0f);
+                grounded = true;
+            }
+            
 
         }
         anim.SetBool("Grounded", grounded);
+
     }
 
     public void Jump()
