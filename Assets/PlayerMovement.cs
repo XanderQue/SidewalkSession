@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Y Velocity", velocity);
         if (!grounded && rigBody.velocity.y < 0.0f)
         {
-            if(groundCheckCollider.IsTouching(groundCollider))
+            if(groundCheckCollider.IsTouchingLayers(LayerMask.NameToLayer("Floor")))
             {
                 rigBody.velocity.Set(0.0f, 0.0f);
                 grounded = true;
@@ -50,13 +50,20 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void TriggerJump()
+    {
+        if (groundCheckCollider.IsTouchingLayers(LayerMask.NameToLayer("Floor")))
+        {
+
+            grounded = false;
+            anim.SetBool("Ollie", true);
+        }
+        
+        
+    }
     public void Jump()
     {
-        if (groundCheckCollider.IsTouching(groundCollider))
-        {
-            rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
-            grounded = false;
-        }
+        rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
     }
 
     public void MoveHorizontal(int direction)
