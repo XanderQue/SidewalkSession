@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPostition: {x: 0, y: 0}
-  xSpeed: -5
+  xSpeed: -1.5
   xDeadPosition: -11
