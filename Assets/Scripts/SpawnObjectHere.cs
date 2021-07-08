@@ -17,11 +17,16 @@ public class SpawnObjectHere : MonoBehaviour
     void Update()
     {
         
+        
+    }
+    private void FixedUpdate()
+    {
+        
     }
 
     IEnumerator waitToSpawn(float waitTime)
     { 
-        Instantiate(goToSpawn,transform);
+        GameObject spawn = Instantiate(goToSpawn,transform);
 
         yield return new WaitForSeconds(waitTime);
 

@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3233564784792360749}
   - component: {fileID: 8809337472668538148}
   - component: {fileID: 7474568924647348238}
+  - component: {fileID: 991981288336317796}
   m_Layer: 10
-  m_Name: Firehydrant
+  m_Name: TrashCan
   m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,3 +147,15 @@ MonoBehaviour:
   startPostition: {x: 0, y: 0}
   xSpeed: -7
   xDeadPosition: -11
+--- !u!114 &991981288336317796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2909971747250895115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0210018062589c346abf08d41860febd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

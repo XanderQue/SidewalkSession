@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
 
     public GameObject player;
-    public GameObject destroyedText;
+    public Text destroyedText;
+    public Text scoreText;
     public AudioSource audioSource;
+    public int score = 0;
 
     private bool alive = true;
     private bool playedAudio = false;
@@ -32,7 +35,7 @@ public class GameLogic : MonoBehaviour
     {
         
     }
-
+   
     private void FixedUpdate()
     {
         if (alive) 
@@ -55,9 +58,9 @@ public class GameLogic : MonoBehaviour
 
     void GameOver()
     {
-        destroyedText.active = true;
         if (!playedAudio)
         {
+            destroyedText.text = "Destroyed!";
             audioSource.Play();
             playedAudio = true;
         }
@@ -65,5 +68,10 @@ public class GameLogic : MonoBehaviour
 
 
         
+    }
+
+    public void updateScore()
+    {
+        scoreText.text = score.ToString();
     }
 }
