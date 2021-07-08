@@ -7,8 +7,10 @@ public class GameLogic : MonoBehaviour
 
     public GameObject player;
     public GameObject destroyedText;
+    public AudioSource audioSource;
 
     private bool alive = true;
+    private bool playedAudio = false;
     private float playerXPos;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +23,8 @@ public class GameLogic : MonoBehaviour
         else
         {
             playerXPos = player.transform.position.x;
-        }    
+        }
+        playedAudio = false;
     }
 
     // Update is called once per frame
@@ -53,5 +56,14 @@ public class GameLogic : MonoBehaviour
     void GameOver()
     {
         destroyedText.active = true;
+        if (!playedAudio)
+        {
+            audioSource.Play();
+            playedAudio = true;
+        }
+        
+
+
+        
     }
 }

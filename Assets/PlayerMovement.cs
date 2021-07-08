@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     public BoxCollider2D groundCheckCollider;
     public BoxCollider2D groundCollider;
     public Animator anim;
+    public AudioClip pop;
+    public AudioClip land;
+    public AudioSource audioSource;
     //end** Editor Game object links **end
 
     [SerializeField]
@@ -42,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 rigBody.velocity.Set(0.0f, 0.0f);
                 grounded = true;
+                PlayLandAudio();
             }
             
 
@@ -64,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
+        PlayPopAudio();
     }
 
     public void MoveHorizontal(int direction)
@@ -76,6 +81,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+    public void PlayPopAudio()
+    {
+        audioSource.PlayOneShot(pop);
+    }
 
+    public void PlayLandAudio()
+    {
+        audioSource.PlayOneShot(land);    
+    }
 
 }
