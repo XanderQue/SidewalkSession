@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class SpawnObjectHere : MonoBehaviour
 {
+    public GameLogic gameLogic;
 
     public GameObject goToSpawn;
+   
     public float pauseTime = 5.0f;
+
+    private bool spawning = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(waitToSpawn(pauseTime));
+        gameLogic = GameObject.FindObjectOfType<GameLogic>();
+        startSpawn();
+        
     }
 
     // Update is called once per frame
@@ -21,8 +28,24 @@ public class SpawnObjectHere : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        
+        if (!spawning)
+        {
+            startSpawn();
+        }
     }
+    //To start spawning.
+    //After game ends use Game Logic script to start spawning the objects again.
+    public void startSpawn()
+    {
+        bool alive = gameLogic.checkAlive();
+        if (alive && !spawning)
+        {
+            spawning = true;
+            StartCoroutine(waitToSpawn(pauseTime));
+        }
+           
+    }
+
 
     IEnumerator waitToSpawn(float waitTime)
     { 
@@ -30,6 +53,15 @@ public class SpawnObjectHere : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
-        StartCoroutine(waitToSpawn(pauseTime));
+        if (gameLogic.checkAlive() && spawning)
+        {
+            StartCoroutine(waitToSpawn(pauseTime));
+        }
+        else
+        {
+            spawning = false;
+        }
+        
+        
     }
 }

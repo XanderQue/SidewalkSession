@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float pushSpeed = 50.0f;
     public float velocity = 0.0f;
     public ForceMode2D jumpMode = ForceMode2D.Impulse;
+    public GameLogic gameLogic;
+    public bool alive = true;
 
 
 
@@ -67,8 +69,11 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump()
     {
-        rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
-        PlayPopAudio();
+        
+            rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
+            PlayPopAudio();
+        
+        
     }
 
     public void MoveHorizontal(int direction)
@@ -76,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         /*Vector2 currPos = transform.position;
         currPos += new Vector2(speed*Time.deltaTime, 0.0f);
         transform.position = currPos;*/
-
+        
         rigBody.AddForce(new Vector2(direction* pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
     }
 

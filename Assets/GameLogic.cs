@@ -7,14 +7,20 @@ public class GameLogic : MonoBehaviour
 {
 
     public GameObject player;
+    public Rigidbody2D playerRig;
+    public SpawnObjectHere trashCanSpawner;
+
     public Text destroyedText;
     public Text scoreText;
     public AudioSource audioSource;
     public int score = 0;
+    public float yMax = -11.0f;
 
-    private bool alive = true;
+    public bool alive = true;
     private bool playedAudio = false;
     private float playerXPos;
+    
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +32,7 @@ public class GameLogic : MonoBehaviour
         else
         {
             playerXPos = player.transform.position.x;
+            playerRig = player.GetComponent<Rigidbody2D>();
         }
         playedAudio = false;
     }
@@ -38,20 +45,13 @@ public class GameLogic : MonoBehaviour
    
     private void FixedUpdate()
     {
-        if (alive) 
-        { 
             playerXPos = player.transform.position.x; 
             if(playerXPos < -11.0f)
             {
                 GameOver();
-                //Freeze player.
-                Rigidbody2D playerBody = player.GetComponent<Rigidbody2D>();
-                playerBody.freezeRotation = true;
-                playerBody.gravityScale = 0.0f;
-
+                
                 //press *start* to continue
             }
-        }
 
 
     }
@@ -60,18 +60,46 @@ public class GameLogic : MonoBehaviour
     {
         if (!playedAudio)
         {
+            playedAudio = true;
             destroyedText.text = "Destroyed!";
             audioSource.Play();
-            playedAudio = true;
+            alive = false;
+            playerRig.Sleep();
+
+
+            Quaternion rot = player.transform.rotation;
+            player.transform.SetPositionAndRotation(Vector3.zero, rot);
+            playerRig.WakeUp();
+
         }
-        
-
-
         
     }
 
     public void updateScore()
     {
         scoreText.text = score.ToString();
+    }
+
+    //After your match ends the spawnObject will stop. Start polling for restart press.
+    public void RestartGame() // Presss from input
+    {
+        if (!alive)
+        {
+            destroyedText.text = "";
+            playedAudio = false;
+            alive = true;
+            score = 0;
+            updateScore();
+
+
+        }
+        
+    }
+
+    //public checkAlive
+    //This is used sent alive status.
+    public bool checkAlive()
+    {
+        return alive;
     }
 }
