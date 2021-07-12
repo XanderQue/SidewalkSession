@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class JumpObject : MonoBehaviour
 {
+
+    public int points = 1;
     private PlayerMovement player;
     private float playerPosition;
     private float currPosition;
+
     private bool scored = false;
     private GameLogic gameLogic;
     // Start is called before the first frame update
@@ -24,7 +27,7 @@ public class JumpObject : MonoBehaviour
         if (playerPosition > currPosition && !scored)
         {
             scored = true;
-            gameLogic.score++;
+            gameLogic.score+= points;
             gameLogic.updateScore();
         }
     }
