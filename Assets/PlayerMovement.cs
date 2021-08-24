@@ -81,8 +81,10 @@ public class PlayerMovement : MonoBehaviour
         /*Vector2 currPos = transform.position;
         currPos += new Vector2(speed*Time.deltaTime, 0.0f);
         transform.position = currPos;*/
-        
-        rigBody.AddForce(new Vector2(direction* pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+        if (grounded)
+            rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+        else
+            Debug.Log("Can only move while grounded");
     }
 
 
