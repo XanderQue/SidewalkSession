@@ -101,13 +101,15 @@ public class PlayerMovement : MonoBehaviour
         transform.position = currPos;*/
         if (grounded && alive && canPush)
         {
-            rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+            
 
             if (direction > 0)
             {
+                rigBody.AddForce(new Vector2(direction * pushSpeed*2 * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                 anim.Play("Push");
             }
-            else {
+            else  {
+                rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                 footDown();
                 anim.Play("slow");
             }
