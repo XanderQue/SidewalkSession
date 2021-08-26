@@ -151,7 +151,7 @@ AnimationClip:
         time: 0.1
         value: {x: -0.25851673, y: 0.16245365, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
-        outSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0.9783363, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -185,7 +185,7 @@ AnimationClip:
         time: 0.1
         value: {x: -0.374, y: 0.205, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
-        outSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0.9783355, z: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -967,7 +967,7 @@ AnimationClip:
         time: 0.1
         value: 0.16245365
         inSlope: Infinity
-        outSlope: 0
+        outSlope: 0.9783363
         tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334
@@ -1078,7 +1078,7 @@ AnimationClip:
         time: 0.1
         value: 0.205
         inSlope: Infinity
-        outSlope: 0
+        outSlope: 0.9783355
         tangentMode: 7
         weightedMode: 0
         inWeight: 0.33333334

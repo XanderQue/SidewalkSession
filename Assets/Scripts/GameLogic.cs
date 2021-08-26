@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
-
+    public PlayerMovement playerMovementScript;
     public GameObject player;
     public Rigidbody2D playerRig;
     public SpawnObjectHere trashCanSpawner;
@@ -56,20 +56,15 @@ public class GameLogic : MonoBehaviour
 
     }
 
-    void GameOver()
+    public void GameOver()
     {
         if (!playedAudio)
         {
             playedAudio = true;
-            destroyedText.text = "Destroyed!";
+            destroyedText.text = "Game Over";
             audioSource.Play();
             alive = false;
             playerRig.Sleep();
-
-
-            Quaternion rot = player.transform.rotation;
-            player.transform.SetPositionAndRotation(Vector3.zero, rot);
-            playerRig.WakeUp();
 
         }
         
@@ -83,15 +78,17 @@ public class GameLogic : MonoBehaviour
     //After your match ends the spawnObject will stop. Start polling for restart press.
     public void RestartGame() // Presss from input
     {
-        if (!alive)
+        if (!alive && playerMovementScript.canSpawn)
         {
             destroyedText.text = "";
-            playedAudio = false;
-            alive = true;
             score = 0;
             updateScore();
+            playedAudio = false;
+            alive = true;
+            
+            updateScore();
 
-
+            playerMovementScript.respawn();
         }
         
     }

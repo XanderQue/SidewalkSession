@@ -11,6 +11,7 @@ public class SpawnObjectHere : MonoBehaviour
     public float pauseTime = 5.0f;
 
     private bool spawning = false;
+    private bool firstTime = true;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,7 @@ public class SpawnObjectHere : MonoBehaviour
     //After game ends use Game Logic script to start spawning the objects again.
     public void startSpawn()
     {
+        firstTime = true;
         bool alive = gameLogic.checkAlive();
         if (alive && !spawning)
         {
@@ -48,7 +50,13 @@ public class SpawnObjectHere : MonoBehaviour
 
 
     IEnumerator waitToSpawn(float waitTime)
-    { 
+    {
+        if (firstTime)
+        {
+            
+            yield return new WaitForSeconds(waitTime);
+            firstTime = false;
+        }
         GameObject spawn = Instantiate(goToSpawn,transform);
 
         yield return new WaitForSeconds(waitTime);
@@ -64,4 +72,5 @@ public class SpawnObjectHere : MonoBehaviour
         
         
     }
+
 }

@@ -6,6 +6,8 @@ TagManager:
   tags:
   - ground
   - Horizontal Wall
+  - hazard
+  - OnlyGround
   layers:
   - Default
   - TransparentFX
@@ -18,11 +20,11 @@ TagManager:
   - Invisible Wall
   - Player
   - Ground
-  - 
-  - 
-  - 
-  - 
-  - 
+  - SkateboardWheels
+  - Skateboard
+  - OnlyGround
+  - Hazard
+  - Rideable
   - 
   - 
   - 
