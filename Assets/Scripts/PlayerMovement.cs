@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 7.75f;
     public float pushSpeed = 50.0f;
     public float velocity = 0.0f;
+    public bool canPush = true;
     public ForceMode2D jumpMode = ForceMode2D.Impulse;
     public GameLogic gameLogic;
     public bool alive = true;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     private float xDeadPosition = -11.0f;
     public float xSpeed = -7.0f;
     public bool canSpawn = false;
+
 
     public GameObject skateboard;
     public GameObject spawnedBoard;
@@ -97,8 +99,35 @@ public class PlayerMovement : MonoBehaviour
         /*Vector2 currPos = transform.position;
         currPos += new Vector2(speed*Time.deltaTime, 0.0f);
         transform.position = currPos;*/
-        if (grounded && alive)
+        if (grounded && alive && canPush)
+        {
             rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+
+            if (direction > 0)
+            {
+                anim.Play("Push");
+            }
+            else {
+                footDown();
+                anim.Play("slow");
+            }
+            canPush = false;   
+        }
+
+    }
+    public void footUp()
+    {
+        if (anim.GetBool("footDown"))
+        {
+            anim.SetBool("footDown", false);
+        }
+    }
+    public void footDown()
+    {
+        if (!anim.GetBool("footDown"))
+        {
+            anim.SetBool("footDown", true);
+        }
     }
 
 
