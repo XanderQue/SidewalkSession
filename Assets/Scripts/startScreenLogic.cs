@@ -23,7 +23,7 @@ public class startScreenLogic : MonoBehaviour
 
     public void startGame()
     {
-        canvas.enabled = false;
+        //canvas.enabled = false;
         SceneManager.LoadScene(1);
     }
 

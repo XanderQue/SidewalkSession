@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
     public float xSpeed = -7.0f;
     public bool canSpawn = false;
 
-
+    private int flashTime = 5;
+    public SpriteRenderer renderer;
     public GameObject skateboard;
     public GameObject spawnedBoard;
 
@@ -195,6 +196,7 @@ public class PlayerMovement : MonoBehaviour
         rigBody.WakeUp();
         gameObject.layer = playerLayer;
         anim.Play("Ride");
+        StartCoroutine(waitFlash(flashTime));
     }
 
     public void MoveAfterFall()
@@ -202,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded && fell && transform.position.x > xDeadPosition)
         {
-            Debug.Log("Move after fall");
+            //Debug.Log("Move after fall");
             Vector2 newPos = transform.position;
             newPos.x += xSpeed * Time.deltaTime;
             transform.position = newPos;
@@ -210,5 +212,18 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    
+
+    IEnumerator waitFlash(int count)
+    {
+        
+        renderer.enabled = false;
+        yield return new WaitForSeconds(0.25f);
+        renderer.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        count--;
+        if(count >0)
+            StartCoroutine(waitFlash(count));
+
+    }
+
 }
