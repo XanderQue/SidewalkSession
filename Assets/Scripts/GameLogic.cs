@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour
 {
+    public static bool paused = false;
+
     public PlayerMovement playerMovementScript;
     public GameObject player;
     public Rigidbody2D playerRig;
     public SpawnObjectHere trashCanSpawner;
 
     public Text destroyedText;
+    public Text pauseText;
     public Text scoreText;
     public AudioSource audioSource;
     public int score = 0;
@@ -19,8 +22,10 @@ public class GameLogic : MonoBehaviour
     public bool alive = true;
     private bool playedAudio = false;
     private float playerXPos;
-    
- 
+    private float flashTime = .75f;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,5 +103,43 @@ public class GameLogic : MonoBehaviour
     public bool checkAlive()
     {
         return alive;
+    }
+
+    public void pauseGame()
+    {
+       
+        if (alive)
+        {
+
+            if (!paused)
+            {
+                Debug.Log("press pause");
+                Time.timeScale = 0.0f;
+                AudioListener.pause = true;
+                paused = true;
+                //start pause flash coroutine
+                StartCoroutine(pauseFlash());
+            }
+            else if(paused)
+            {
+                Debug.Log("unpause");
+                pauseText.text = "";
+                Time.timeScale = 1.0f;
+                AudioListener.pause = false;
+                paused = false;
+            }
+        }
+    }
+
+    IEnumerator pauseFlash()
+    {
+        pauseText.text = "Paused";
+        yield return new WaitForSecondsRealtime(flashTime);
+        pauseText.text = "";
+        if (paused)
+        {
+            yield return new WaitForSecondsRealtime(flashTime);
+            StartCoroutine(pauseFlash());
+        }
     }
 }
