@@ -76,12 +76,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void TriggerJump()
     {
-        if (grounded && alive)
+        if (!GameLogic.paused)
         {
+            if (grounded && alive)
+            {
 
-            grounded = false;
-            anim.SetBool("Ollie", true);
+                grounded = false;
+                anim.SetBool("Ollie", true);
+            }
         }
+
         
         
     }
@@ -99,21 +103,26 @@ public class PlayerMovement : MonoBehaviour
         /*Vector2 currPos = transform.position;
         currPos += new Vector2(speed*Time.deltaTime, 0.0f);
         transform.position = currPos;*/
-        if (grounded && alive && canPush)
-        {
-            
 
-            if (direction > 0)
+        if (!GameLogic.paused)
+        {
+            if (grounded && alive && canPush)
             {
-                rigBody.AddForce(new Vector2(direction * pushSpeed*2 * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
-                anim.Play("Push");
+
+
+                if (direction > 0)
+                {
+                    rigBody.AddForce(new Vector2(direction * pushSpeed * 2 * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+                    anim.Play("Push");
+                }
+                else
+                {
+                    rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+                    footDown();
+                    anim.Play("slow");
+                }
+                canPush = false;
             }
-            else  {
-                rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
-                footDown();
-                anim.Play("slow");
-            }
-            canPush = false;   
         }
 
     }

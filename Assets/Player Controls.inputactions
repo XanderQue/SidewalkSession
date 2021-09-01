@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "6882453a-f665-4228-b532-8ecb77211a0d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 }
             ],
             "bindings": [
@@ -80,6 +88,55 @@
                     "processors": "",
                     "groups": "",
                     "action": "StopSlowingDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "96ef1d37-970c-4bd2-8173-0f12d4232576",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2622068d-9baf-46a6-a993-40300bbb7a0c",
+                    "path": "<Keyboard>/p",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "New action map",
+            "id": "7af1e92f-a769-4c35-8ce8-7a0927deba15",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "49f9ae42-a253-4d48-9cd9-8093ad13e58e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f1796f59-a928-4fb7-9a7b-b351be5ca2b1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
