@@ -8,6 +8,11 @@ public class SpawnObjectHere : MonoBehaviour
 
     public int timesToSpawn = -1;
 
+
+    public List<GameObject> gameObjectList;
+    private int gameObjectIndex = 0;
+    public bool rand_GameObjectIndex = false;
+
     public List<float> sizesOfObjectsList;
     private int sizeObjIndex = 0;
     public bool rand_SizeIndex = false;
@@ -18,10 +23,6 @@ public class SpawnObjectHere : MonoBehaviour
     public bool rand_WaitTImeIndex = false;
     public bool randWaitTime_BetweenValsOnly = false;
 
-    public List<GameObject> gameObjectList;
-    private int gameObjectIndex = 0;
-    public bool rand_GameObjectIndex = false;
-    public bool randGameObject_BetweenValsOnly = false;
 
     public List<Vector2> positionList;
     private int positionIndex = 0;
@@ -38,7 +39,8 @@ public class SpawnObjectHere : MonoBehaviour
     void Start()
     {
         if (gameObjectList != null)
-        { 
+        {
+            
             gameLogic = GameObject.FindObjectOfType<GameLogic>();
             startSpawn();
         }
@@ -65,6 +67,7 @@ public class SpawnObjectHere : MonoBehaviour
         bool alive = gameLogic.checkAlive();
         if (alive && !spawning)
         {
+            pauseTime = SetWaitTimes();
             spawning = true;
             StartCoroutine(waitToSpawn(pauseTime));
         }
@@ -89,6 +92,7 @@ public class SpawnObjectHere : MonoBehaviour
         //check other scenarios before processing. or handle in fixed update?
         //maybe sperate in different function.
 
+
         if (firstTime)
         {
             
@@ -96,15 +100,20 @@ public class SpawnObjectHere : MonoBehaviour
             firstTime = false;
         }
         GameObject toSpawn = getGObject();
+
+        GameObject spawn = Instantiate(toSpawn);
+
         Vector2 spawnPosition = getPosition();
-        Transform newTransform = this.transform;
-        newTransform.position = spawnPosition;
-        GameObject spawn = Instantiate(toSpawn,newTransform);
+        Vector2 spawnSize = Vector2.one * SetSize();
+
+        spawn.transform.localScale = spawnSize;
+        spawn.transform.position = spawnPosition;
 
         yield return new WaitForSeconds(waitTime);
 
         if (gameLogic.checkAlive() && spawning)
         {
+            pauseTime = SetWaitTimes();
             StartCoroutine(waitToSpawn(pauseTime));
         }
         else
@@ -197,7 +206,7 @@ public class SpawnObjectHere : MonoBehaviour
             }
         }
         //else
-        return 1;
+        return 1.0f;
     }
 
     private GameObject getGObject()
@@ -236,7 +245,7 @@ public class SpawnObjectHere : MonoBehaviour
     private Vector2 getPosition()
     {
         //check
-        if (positionList.Count > 0 && positionIndex != null)
+        if (positionList.Count > 0 && positionList != null)
         {
             if (positionList.Count > 1)
             {
@@ -281,7 +290,7 @@ public class SpawnObjectHere : MonoBehaviour
             }
         }
         //else
-        return this.getPosition();
+        return this.transform.position;
     }
 
 }
