@@ -400,7 +400,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0a04c92080919884dbddc48c40145cba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -480,18 +480,15 @@ MonoBehaviour:
   gameObjectList:
   - {fileID: 2909971747250895115, guid: be6e42cea38f15f4289250ce1446b928, type: 3}
   rand_GameObjectIndex: 0
-  sizesOfObjectsList:
-  - 0.5
-  - 0.75
-  - 1.15
+  sizesOfObjectsList: []
   rand_SizeIndex: 0
   randSize_BetweenValsOnly: 0
   waitTimesList:
-  - 1
-  - 2
+  - 1.25
   - 3
+  - 0
   rand_WaitTImeIndex: 0
-  randWaitTime_BetweenValsOnly: 0
+  randWaitTime_BetweenValsOnly: 1
   positionList: []
   rand_PositionIndex: 0
   randPosition_BetweenValsOnly: 0
@@ -782,7 +779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &481042433
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -801,7 +798,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ad74fb24672607e45be00cbfb27c8eb5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1110,7 +1107,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0a1c97562f2f21a40ba6b32d9e11be83, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1191,7 +1188,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ff7d5cc822c2f4748a8c726caa030d0e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1601,7 +1598,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 48c148528e538ff47a34d3b37b8d8467, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1899,6 +1896,87 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1556465851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1556465853}
+  - component: {fileID: 1556465852}
+  m_Layer: 0
+  m_Name: Cloud Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1556465852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556465851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de38b1db86edb1c41a233f35ea59c268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameLogic: {fileID: 0}
+  timesToSpawn: -1
+  gameObjectList:
+  - {fileID: 8365813447663542889, guid: d83e0d3f862482e47882ee3bcb691402, type: 3}
+  - {fileID: 4146485032036655337, guid: e79f11cf81c8dd74a948e2cf8837a3ed, type: 3}
+  - {fileID: 891814162441324606, guid: 9863a27d0c6c3e2408d009821054a614, type: 3}
+  - {fileID: 954189013722258853, guid: 3127a6b40aab5174eaa46f0ffd016282, type: 3}
+  - {fileID: 1594011204243098862, guid: 4f5ce861fc055e14fb69e2aec200499a, type: 3}
+  - {fileID: 5589826043644473062, guid: 741a0f9f5e580614396b317e7b882ad9, type: 3}
+  - {fileID: 3868912972902613341, guid: 33250aa5b62497d45984584b6fc5b57f, type: 3}
+  - {fileID: 3643710434749178915, guid: 3f4625bd886516746b2274dd47cbb24d, type: 3}
+  - {fileID: 5026732975945711292, guid: c9564f35791da0e43a360b61a51a200f, type: 3}
+  - {fileID: 7049544453381491605, guid: 7521fb3dbb37cb640821bfa5e7b0ca74, type: 3}
+  - {fileID: 3463300762404537683, guid: 0353b672f164c224ebeb5655a1c441c3, type: 3}
+  - {fileID: 6806060450873808809, guid: 0771dc3ff065fdc4a87af1f1d3563d32, type: 3}
+  - {fileID: 8381325386036101329, guid: af4b15830e7b3a24cbe53ba0a18ddcb5, type: 3}
+  - {fileID: 3479820304289314428, guid: ef161f48ef42e3b498cb264bcdd44900, type: 3}
+  - {fileID: 1800702265366389261, guid: a190f5f4b7e42684b98b8b3d170531cc, type: 3}
+  - {fileID: 8236355292191860979, guid: fa06939c031dce6449a698f3e5cc4aca, type: 3}
+  - {fileID: 5760397063391174859, guid: 3bba9ae82c3edfd47b14ce34bb387a68, type: 3}
+  - {fileID: 64247108211683761, guid: 22a9a2a9c54ec214eb4bd9341e6a4015, type: 3}
+  - {fileID: 8655739345986606394, guid: 7ea5fa8bbc7ba3b4aad4b17dbadeb1da, type: 3}
+  - {fileID: 267671122459007945, guid: d1f1e75d9c4aca845b9cc5fe7e84e8f1, type: 3}
+  rand_GameObjectIndex: 1
+  sizesOfObjectsList: []
+  rand_SizeIndex: 0
+  randSize_BetweenValsOnly: 0
+  waitTimesList:
+  - 1
+  - 5
+  rand_WaitTImeIndex: 0
+  randWaitTime_BetweenValsOnly: 1
+  positionList:
+  - {x: 8.5, y: 2.6}
+  - {x: 8.5, y: 4.7}
+  rand_PositionIndex: 0
+  randPosition_BetweenValsOnly: 0
+  pauseTime: 5
+--- !u!4 &1556465853
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556465851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.5, y: 3.04, z: 174.27637}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582778612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,7 +2012,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6a0b8b0382274f249a13731b2e25a255, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
