@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-115482550518371453
+--- !u!114 &-3007835790904047345
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2DWaveScroll2
+  m_Name: Street
   m_Shader: {fileID: -6465566751694194690, guid: 89e871d2d2e8d06449ba1c7084e46fe3,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4778335fa5635bd42ac1213029e6f7b5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8cd49814072842246a5fb6b7fe1b8371, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -83,9 +83,12 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - global_SpeedMultiplyer: 1.01
+    - myTimer: 0
     m_Colors:
-    - MoveX: {r: 0.04, g: 0, b: 0, a: 0}
+    - MoveX: {r: 0.465, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - uv_Offset: {r: 0.72227365, g: 0, b: 0, a: 0}

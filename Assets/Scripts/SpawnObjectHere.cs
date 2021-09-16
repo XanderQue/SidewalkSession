@@ -30,7 +30,10 @@ public class SpawnObjectHere : MonoBehaviour
     public bool randPosition_BetweenValsOnly = false;
 
     public float pauseTime = 5.0f;
-    
+
+
+    [SerializeField]
+    private bool alwaysSpawning = false;
 
     private bool spawning = false;
     private bool firstTime = true;
@@ -65,7 +68,7 @@ public class SpawnObjectHere : MonoBehaviour
     {
         firstTime = true;
         bool alive = gameLogic.checkAlive();
-        if (alive && !spawning)
+        if ( (alive || alwaysSpawning) && !spawning)
         {
             pauseTime = SetWaitTimes();
             spawning = true;
@@ -77,21 +80,6 @@ public class SpawnObjectHere : MonoBehaviour
 
     IEnumerator waitToSpawn(float waitTime)
     {
-
-        //do work to get object to spawn
-        //first check
-        //if(randomSpawnGO && randomSpawnPositin)
-        //{
-        //  if(syncedLists)
-        //  {
-        //      //.. do stuff here..
-        //
-        //  }
-        //
-        //}
-        //check other scenarios before processing. or handle in fixed update?
-        //maybe sperate in different function.
-
 
         if (firstTime)
         {
@@ -111,7 +99,7 @@ public class SpawnObjectHere : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
-        if (gameLogic.checkAlive() && spawning)
+        if ((gameLogic.checkAlive() || alwaysSpawning ) && spawning)
         {
             pauseTime = SetWaitTimes();
             StartCoroutine(waitToSpawn(pauseTime));
@@ -197,7 +185,7 @@ public class SpawnObjectHere : MonoBehaviour
                     float minVal = Mathf.Min(waitTimesList[0], waitTimesList[1]);
                     float maxVal = Mathf.Max(waitTimesList[0], waitTimesList[1]);
                     //random return rand between 0 and 1
-                    return Random.Range(minVal, maxVal);
+                    return Random.Range(minVal, maxVal)/GameLogic.global_SpeedMultiplyer;
                 }
             }
             else

@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2DWaveScroll3
-  m_Shader: {fileID: -6465566751694194690, guid: 89e871d2d2e8d06449ba1c7084e46fe3,
+  m_Name: DistantClouds
+  m_Shader: {fileID: -6465566751694194690, guid: 1bdfe25293e77bb43b0d12a2cad77c83,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -32,8 +32,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Haze_612DA305_Texture2DDC04043E_3301767897:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ff8ceba75a1f57c4091b6f70a5e729fe, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8cd49814072842246a5fb6b7fe1b8371, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -48,7 +52,37 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_837730D8_Out_0:
+        m_Texture: {fileID: 2800000, guid: b72e3e7666b547746baf17ec27d1cd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_C2844D6F_Out_0:
+        m_Texture: {fileID: 2800000, guid: b72e3e7666b547746baf17ec27d1cd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_EBC276D8_Out_0:
+        m_Texture: {fileID: 2800000, guid: b72e3e7666b547746baf17ec27d1cd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_F0A22708_Out_0:
+        m_Texture: {fileID: 2800000, guid: b72e3e7666b547746baf17ec27d1cd8f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_2CFA3CF2: 0
+    - HazeDensity: 9.18
+    - HazeMag: 2.74
+    - Vector1_1BC16D56: 0
+    - Vector1_4C33ED3D: 0
+    - Vector1_574EBD50: 0
+    - Vector1_6352D49D: 0
+    - Vector1_7C585CC0: 0.005
+    - Vector1_89196168: 10
+    - Vector1_9813D205: 30
+    - Vector1_A9193847: 0.125
+    - Vector1_DFFF5CD1: 50
+    - Vector1_FBC8B6A0: 0
+    - WindSpeed: 0.05
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -70,13 +104,19 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
+    - global_SpeedMultiplyer: 1.01
     m_Colors:
-    - MoveX: {r: 0.03, g: 0, b: 0, a: 0}
+    - Color_E623A09A: {r: 1, g: 1, b: 1, a: 1}
+    - MoveX: {r: 0.003, g: 0, b: 0, a: 0}
+    - Vector3_95871FCF: {r: 0.01, g: 0, b: 0, a: 0}
+    - WindDirection: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
---- !u!114 &2756237195145327505
+    - global_SpeedMultiplyer: {r: 1, g: 0, b: 0, a: 0}
+    - uv_Offset: {r: 0.60040253, g: 0, b: 0, a: 0}
+--- !u!114 &2582181386449986095
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

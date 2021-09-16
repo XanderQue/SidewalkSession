@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameLogic : MonoBehaviour
+ public class GameLogic : MonoBehaviour
 {
     public static bool paused = false;
+    public static float global_SpeedMultiplyer = 1.0f;
 
     public PlayerMovement playerMovementScript;
     public GameObject player;
@@ -17,12 +18,15 @@ public class GameLogic : MonoBehaviour
     public Text scoreText;
     public AudioSource audioSource;
     public int score = 0;
+
+    public float speedMult = 1.0f;
     public float yMax = -11.0f;
 
     public bool alive = true;
     private bool playedAudio = false;
     private float playerXPos;
     private float flashTime = .75f;
+
 
 
 
@@ -57,8 +61,20 @@ public class GameLogic : MonoBehaviour
                 
                 //press *start* to continue
             }
+        if (speedMult != global_SpeedMultiplyer)
+        {
+            global_SpeedMultiplyer = speedMult;
 
+        }
+        if (checkAlive())
+        {
+            speedUpStart();
+        }
+        else
+        {
 
+            slowToStop();
+        }
     }
 
     public void GameOver()
@@ -70,7 +86,8 @@ public class GameLogic : MonoBehaviour
             audioSource.Play();
             alive = false;
             playerRig.Sleep();
-
+            slowToStop();
+            speedMult = 1.0f;
         }
         
     }
@@ -78,6 +95,7 @@ public class GameLogic : MonoBehaviour
     public void updateScore()
     {
         scoreText.text = score.ToString();
+        speedMult += 0.01f;
     }
 
     //After your match ends the spawnObject will stop. Start polling for restart press.
@@ -140,6 +158,22 @@ public class GameLogic : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(flashTime);
             StartCoroutine(pauseFlash());
+        }
+    }
+
+    private void slowToStop()
+    {
+        if (speedMult > 0)
+        {
+          //  speedMult -= 0.1f * Time.deltaTime;
+        }
+
+    }
+    private void speedUpStart()
+    {
+        if (speedMult < 1.0f)
+        {
+          //  speedMult += 0.1f * Time.deltaTime;
         }
     }
 }
