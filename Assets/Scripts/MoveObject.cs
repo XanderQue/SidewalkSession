@@ -31,7 +31,7 @@ public class MoveObject : MonoBehaviour
     void MoveHorizontal()
     {
         Vector2 newPos = transform.position;
-        newPos.x += xSpeed * Time.deltaTime;
+        newPos.x += xSpeed * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
         transform.position = newPos;
     }
 
