@@ -116,7 +116,6 @@ Material:
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - global_SpeedMultiplyer: {r: 1, g: 0, b: 0, a: 0}
     - uv_Offset: {r: 0.562603, g: 0, b: 0, a: 0}
---- !u!114 &2582181386449986095
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

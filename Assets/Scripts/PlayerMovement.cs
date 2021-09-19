@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool grounded;
 
+
     public float jumpForce = 7.75f;
     public float pushSpeed = 50.0f;
     public float velocity = 0.0f;
@@ -31,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private int onlyGroundLayer = 13;//this is to change to the physics tag that ignores all objects but the ground.
     private int playerLayer = 9;
 
+    private Vector2 startPos;
     public bool fell = false;
     public bool waitToCheckGround = false;
 
@@ -47,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startPos = new Vector2(0, 0);
+        startPos.x = transform.position.x;
+        startPos.y = transform.position.y;
     }
 
     // Update is called once per frame
@@ -113,13 +118,17 @@ public class PlayerMovement : MonoBehaviour
 
                 if (direction > 0)
                 {
-                    rigBody.AddForce(new Vector2(direction * pushSpeed * 2 * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+                    //rigBody.AddForce(new Vector2(direction * pushSpeed * 2 * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                     anim.Play("Push");
+                    gameLogic.speedMult += 0.1f;
                 }
                 else
                 {
-                    rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
+                    //rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                     footDown();
+                    if(GameLogic.global_SpeedMultiplyer > 0.1f)
+                        gameLogic.speedMult -= 0.1f;
+                
                     anim.Play("slow");
                 }
                 canPush = false;
@@ -201,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
         alive = true;
         fell = false;
         Quaternion rot = transform.rotation;
-        transform.SetPositionAndRotation(Vector3.zero, rot);
+        transform.SetPositionAndRotation(startPos, rot);
         rigBody.WakeUp();
         gameObject.layer = playerLayer;
         anim.Play("Ride");
