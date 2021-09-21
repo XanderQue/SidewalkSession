@@ -24,7 +24,7 @@ public class JumpObject : MonoBehaviour
     {
         playerPosition = player.transform.position.x;
         currPosition = transform.position.x;
-        if (playerPosition > currPosition && !scored)
+        if (playerPosition > currPosition && !scored && player.alive)
         {
             scored = true;
             gameLogic.score += Mathf.RoundToInt(gameLogic.speedMult * points);

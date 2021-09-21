@@ -46,7 +46,7 @@ public class GameLogic : MonoBehaviour
         }
         else
         {
-            
+            coroutines = new List<Coroutine>();   
             playerXPos = player.transform.position.x;
             playerRig = player.GetComponent<Rigidbody2D>();
         }
@@ -76,7 +76,7 @@ public class GameLogic : MonoBehaviour
         if (speedMult != global_SpeedMultiplyer)
         {
             global_SpeedMultiplyer = speedMult;
-            speedText.text = global_SpeedMultiplyer.ToString();
+            speedText.text = (Mathf.RoundToInt(global_SpeedMultiplyer*100)/100.0f).ToString();
 
         }
         if (checkAlive())
@@ -178,7 +178,7 @@ public class GameLogic : MonoBehaviour
         if (paused)
         {
             pauseText.text = "Paused";
-            pauseQuitText.text = "Press \'Q\', Select(Gamepad) or View(Xbox) to quit to title screen";
+            pauseQuitText.text = "Press \'Q\' or Select(Gamepad) to quit to title screen";
             yield return new WaitForSecondsRealtime(flashTime);
             pauseText.text = "";
 

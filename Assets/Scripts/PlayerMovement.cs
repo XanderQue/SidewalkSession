@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -268,4 +269,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    public void checkTouch(InputAction.CallbackContext context)
+    {
+        Debug.Log("checkTouch"+context.action.name);
+    }
 }

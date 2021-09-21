@@ -11,7 +11,7 @@
                     "id": "431a67b0-198e-463d-9806-bfac218b63e1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=1)"
+                    "interactions": "Press"
                 },
                 {
                     "name": "Slow Down",
@@ -52,6 +52,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press"
+                },
+                {
+                    "name": "StartButton",
+                    "type": "Button",
+                    "id": "9ad0e9aa-9e5b-4db6-b260-31e0c8f8c1f8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -70,6 +78,39 @@
                     "name": "",
                     "id": "ee411227-71d5-4bf2-8ada-99fce0ebddc3",
                     "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump(Space Bar)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e8ccf4c2-9e8d-4085-b4c9-7ce31dd9e3dc",
+                    "path": "<WebGLGamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump(Space Bar)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a58a4ec8-235a-4599-b163-3b45dd608f98",
+                    "path": "<WebGLGamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump(Space Bar)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdfce78a-a289-4bd7-8b4f-0fe97ec597cd",
+                    "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -101,6 +142,17 @@
                 },
                 {
                     "name": "",
+                    "id": "16dd3916-c879-430a-abab-cfb3abf91c25",
+                    "path": "<WebGLGamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slow Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d8914346-a5d9-471c-9d4f-d0b38fa86794",
                     "path": "<Keyboard>/d",
                     "interactions": "Press",
@@ -114,6 +166,17 @@
                     "name": "",
                     "id": "2e5de9f7-6e5a-4713-874c-6e1e1b840e0d",
                     "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Speed Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a9ada38-17cd-4022-b68a-5a1231157d36",
+                    "path": "<WebGLGamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -157,7 +220,18 @@
                 {
                     "name": "",
                     "id": "42f76a7c-dd8d-4e76-b00b-0a4d121c2e0b",
-                    "path": "<XInputController>/start",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "624e88a3-f72f-4331-9c74-e2b8797754fb",
+                    "path": "<WebGLGamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -179,11 +253,66 @@
                 {
                     "name": "",
                     "id": "bdc61363-89d5-4189-a0fb-46d7edb17d53",
-                    "path": "<XInputController>/select",
+                    "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "68630aaf-48c6-46ee-a14e-0016a0ee3273",
+                    "path": "<WebGLGamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df336bcf-1a48-4fc9-981f-a541190e6205",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a16b9b4-e484-4f92-a942-23c8fdd332f1",
+                    "path": "<WebGLGamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fb56af4f-b8a8-4ffe-88e7-957af094edbb",
+                    "path": "<AndroidGamepadXboxController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fa6cfe4-7b91-45be-84eb-c4150991a61c",
+                    "path": "<AndroidGamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

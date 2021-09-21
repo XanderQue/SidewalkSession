@@ -92,4 +92,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - uv_Offset: {r: 0.8788519, g: 65.01263, b: 0, a: 0}
+    - uv_Offset: {r: 0.016723359, g: 90.59162, b: 0, a: 0}
