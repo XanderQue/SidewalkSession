@@ -11,7 +11,7 @@
                     "id": "431a67b0-198e-463d-9806-bfac218b63e1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press"
+                    "interactions": "Press(behavior=1)"
                 },
                 {
                     "name": "Slow Down",
@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(behavior=1)"
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "16841701-a23e-445a-a8d0-e4037e08f080",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -51,6 +59,17 @@
                     "name": "",
                     "id": "c3441c75-e9f1-469f-8491-6937e20588ef",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump(Space Bar)",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee411227-71d5-4bf2-8ada-99fce0ebddc3",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -71,9 +90,31 @@
                 },
                 {
                     "name": "",
+                    "id": "a23f7f6e-f661-4130-9c66-024b67c73801",
+                    "path": "<XInputController>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slow Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "d8914346-a5d9-471c-9d4f-d0b38fa86794",
                     "path": "<Keyboard>/d",
                     "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Speed Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2e5de9f7-6e5a-4713-874c-6e1e1b840e0d",
+                    "path": "<XInputController>/rightTrigger",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Speed Up",
@@ -112,31 +153,37 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "New action map",
-            "id": "7af1e92f-a769-4c35-8ce8-7a0927deba15",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "49f9ae42-a253-4d48-9cd9-8093ad13e58e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "f1796f59-a928-4fb7-9a7b-b351be5ca2b1",
-                    "path": "",
+                    "id": "42f76a7c-dd8d-4e76-b00b-0a4d121c2e0b",
+                    "path": "<XInputController>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fad3a43d-156c-43ed-9aad-eda97246e76d",
+                    "path": "<Keyboard>/q",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdc61363-89d5-4189-a0fb-46d7edb17d53",
+                    "path": "<XInputController>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

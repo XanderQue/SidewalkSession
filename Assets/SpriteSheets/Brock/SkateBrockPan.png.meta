@@ -31,10 +31,10 @@ TextureImporter:
     second: SkateBrockPan_8
   - first:
       213: -1322263770096958483
-    second: SkateBrockPan_9
+    second: Brock_FrontShut_3
   - first:
       213: -5891551313498634893
-    second: SkateBrockPan_10
+    second: Brock_FrontShut_2
   - first:
       213: -8907434957571763289
     second: Skateboard
@@ -92,6 +92,15 @@ TextureImporter:
   - first:
       213: 3300047261810775209
     second: Brock push 3
+  - first:
+      213: -2853490572300573152
+    second: Brock_FrontShut_1
+  - first:
+      213: -8938577812677846374
+    second: Brock_FrontShut_4
+  - first:
+      213: 2251734163206467363
+    second: SkateBrockPan_32
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -808,6 +817,90 @@ TextureImporter:
       bones: []
       spriteID: 9a45b3e008f1ccd20800000000000000
       internalID: 3300047261810775209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Brock_FrontShut_3
+      rect:
+        serializedVersion: 2
+        x: 1416
+        y: 0
+        width: 256
+        height: 256
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de380045b1066ade0800000000000000
+      internalID: -1322263770096958483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Brock_FrontShut_2
+      rect:
+        serializedVersion: 2
+        x: 1158
+        y: 0
+        width: 256
+        height: 256
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3758dee8b410d3ea0800000000000000
+      internalID: -5891551313498634893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Brock_FrontShut_1
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 0
+        width: 256
+        height: 256
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0262914617d5668d0800000000000000
+      internalID: -2853490572300573152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Brock_FrontShut_4
+      rect:
+        serializedVersion: 2
+        x: 1644
+        y: 2
+        width: 256
+        height: 256
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9a162686dac3f380800000000000000
+      internalID: -8938577812677846374
       vertices: []
       indices: 
       edges: []

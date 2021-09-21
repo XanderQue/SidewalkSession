@@ -27,8 +27,12 @@ public class JumpObject : MonoBehaviour
         if (playerPosition > currPosition && !scored)
         {
             scored = true;
-            gameLogic.score+= points;
+            gameLogic.score += Mathf.RoundToInt(gameLogic.speedMult * points);
+
+            gameLogic.ScorePopUpTextSet(Mathf.RoundToInt(gameLogic.speedMult * points));
+
             gameLogic.updateScore();
         }
+
     }
 }

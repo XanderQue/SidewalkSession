@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canSpawn = false;
 
     private int flashTime = 5;
-    public SpriteRenderer renderer;
+    public SpriteRenderer sprtRenderer;
     public GameObject skateboard;
     public GameObject spawnedBoard;
 
@@ -88,7 +88,17 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 grounded = false;
-                anim.SetBool("Ollie", true);
+                if ((gameLogic.getNumJumps() + 1) % 100 == 0)
+                {
+                    //front shuv - extra points and fan fare
+                    anim.SetBool("FrontShuv", true);
+
+                }
+                else 
+                {
+                    anim.SetBool("Ollie", true);
+                }
+                
             }
         }
 
@@ -97,9 +107,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Jump()
     {
-        
+            
             rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
             PlayPopAudio();
+            
         
         
     }
@@ -126,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                     footDown();
-                    if(GameLogic.global_SpeedMultiplyer > 0.1f)
+                    if(GameLogic.global_SpeedMultiplyer > 1.0f + (gameLogic.score * 0.005f))
                         gameLogic.speedMult -= 0.1f;
                 
                     anim.Play("slow");
@@ -138,16 +149,22 @@ public class PlayerMovement : MonoBehaviour
     }
     public void footUp()
     {
-        if (anim.GetBool("footDown"))
+        if (anim != null)
         {
-            anim.SetBool("footDown", false);
+            if (anim.GetBool("footDown"))
+            {
+                anim.SetBool("footDown", false);
+            }
         }
     }
     public void footDown()
     {
-        if (!anim.GetBool("footDown"))
+        if (anim != null)
         {
-            anim.SetBool("footDown", true);
+            if (!anim.GetBool("footDown"))
+            {
+                anim.SetBool("footDown", true);
+            }
         }
     }
 
@@ -209,10 +226,10 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("Grounded", grounded);
         alive = true;
         fell = false;
+        gameObject.layer = LayerMask.NameToLayer("OnlyGround");
         Quaternion rot = transform.rotation;
         transform.SetPositionAndRotation(startPos, rot);
         rigBody.WakeUp();
-        gameObject.layer = playerLayer;
         anim.Play("Ride");
         StartCoroutine(waitFlash(flashTime));
     }
@@ -233,14 +250,21 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator waitFlash(int count)
     {
-        
-        renderer.enabled = false;
+
+        sprtRenderer.enabled = false;
         yield return new WaitForSeconds(0.25f);
-        renderer.enabled = true;
+        sprtRenderer.enabled = true;
         yield return new WaitForSeconds(0.5f);
         count--;
-        if(count >0)
+        if (count > 0)
+        {
             StartCoroutine(waitFlash(count));
+        }
+            
+        else 
+        {
+            gameObject.layer = LayerMask.NameToLayer("Player");
+        }
 
     }
 

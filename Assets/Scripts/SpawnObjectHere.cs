@@ -169,14 +169,14 @@ public class SpawnObjectHere : MonoBehaviour
                         //get random index
                         int randIndex = Random.Range(0, waitTimesList.Count);
 
-                        return waitTimesList[randIndex];
+                        return waitTimesList[randIndex] + (GameLogic.global_SpeedMultiplyer * 0.01f);
                     }
                     else
                     {
                         //use index to loop (index % sise of list) to prevent walk off
                         float retValue = waitTimesList[waitTimeIndex % waitTimesList.Count];
                         waitTimeIndex++;
-                        return retValue;
+                        return retValue + (GameLogic.global_SpeedMultiplyer * 0.01f);
                     }
                 }
                 else // random between two values only
@@ -185,16 +185,16 @@ public class SpawnObjectHere : MonoBehaviour
                     float minVal = Mathf.Min(waitTimesList[0], waitTimesList[1]);
                     float maxVal = Mathf.Max(waitTimesList[0], waitTimesList[1]);
                     //random return rand between 0 and 1
-                    return Random.Range(minVal, maxVal)/GameLogic.global_SpeedMultiplyer;
+                    return Random.Range(minVal, maxVal) + (GameLogic.global_SpeedMultiplyer * 0.01f);
                 }
             }
             else
             {
-                return (waitTimesList[0]);
+                return waitTimesList[0]+(GameLogic.global_SpeedMultiplyer*0.01f);
             }
         }
         //else
-        return 1.0f;
+        return 1.0f + (GameLogic.global_SpeedMultiplyer * 0.01f);
     }
 
     private GameObject getGObject()
@@ -261,12 +261,12 @@ public class SpawnObjectHere : MonoBehaviour
                     float minX_Val = Mathf.Min(positionList[0].x, positionList[1].x);
                     float maxX_Val = Mathf.Max(positionList[0].x, positionList[1].x);
                     //random return rand between 0 and 1
-                    float xVal = Random.RandomRange(minX_Val, maxX_Val);
+                    float xVal = Random.Range(minX_Val, maxX_Val);
 
                     float minY_Val = Mathf.Min(positionList[0].y, positionList[1].y);
                     float maxY_Val = Mathf.Max(positionList[0].y, positionList[1].y);
                     //random return rand between 0 and 1
-                    float yVal = Random.RandomRange(minY_Val, maxY_Val);
+                    float yVal = Random.Range(minY_Val, maxY_Val);
 
                     return new Vector2(xVal, yVal);
 
