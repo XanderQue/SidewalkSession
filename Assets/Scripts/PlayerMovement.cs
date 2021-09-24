@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    private PlayerActionControls playerActionControls;
     //Editor Game object links
     public Rigidbody2D rigBody;
     public BoxCollider2D groundCheckCollider;
@@ -47,6 +49,21 @@ public class PlayerMovement : MonoBehaviour
     public GameObject skateboard;
     public GameObject spawnedBoard;
 
+    private void Awake()
+    {
+        playerActionControls = new PlayerActionControls();
+    }
+
+    private void OnEnable()
+    {
+        playerActionControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerActionControls.Disable();
+
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 grounded = false;
-                if ((gameLogic.getNumJumps() + 1) % 100 == 0)
+                if ((gameLogic.getNumJumps() + 1) % 5 == 0)
                 {
                     //front shuv - extra points and fan fare
                     anim.SetBool("FrontShuv", true);
@@ -271,6 +288,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void checkTouch(InputAction.CallbackContext context)
     {
-        Debug.Log("checkTouch"+context.action.name);
+        Debug.Log("checkTouch"+ context.phase);
     }
 }

@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 2DWaveScroll2
-  m_Shader: {fileID: -6465566751694194690, guid: 89e871d2d2e8d06449ba1c7084e46fe3,
+  m_Shader: {fileID: -6465566751694194690, guid: 1bdfe25293e77bb43b0d12a2cad77c83,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -62,6 +62,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Boolean_B1385BAB: 0
+    - Boolean_CA1BE755: 0
+    - HazeDensity: -7
+    - HazeMag: 7.4
+    - StaticSpeed: 1
+    - Vector1_F3F3CF20: 0
+    - WindSpeed: 0.05
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -85,11 +92,16 @@ Material:
     - _ZWrite: 1
     - global_SpeedMultiplyer: 1
     - myTimer: 0
+    - staticX: 0
+    - staticY: 1
     m_Colors:
-    - ColorOvlerlay: {r: 0, g: 0, b: 0, a: 1}
-    - MoveX: {r: 0.085, g: 0.015, b: 0, a: 0}
+    - ColorOvlerlay: {r: 0, g: 0, b: 0, a: 0}
+    - MoveX: {r: 0.045, g: 0.12, b: 0, a: 0}
+    - Speed: {r: 0.033, g: 0, b: 0, a: 0}
+    - SpeedScroll: {r: 0.04, g: 0.12, b: 0, a: 0}
+    - WindDirection: {r: 1.25, g: -1.25, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - uv_Offset: {r: 0.016723359, g: 90.59162, b: 0, a: 0}
+    - uv_Offset: {r: 0.32315964, g: 0.7183305, b: 0, a: 0}

@@ -671,6 +671,25 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 16841701-a23e-445a-a8d0-e4037e08f080
     m_ActionName: Player/Quit[/Keyboard/q,/XInputControllerWindows/select]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ad0e9aa-9e5b-4db6-b260-31e0c8f8c1f8
+    m_ActionName: Player/StartButton
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1446225787}
+        m_MethodName: startGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c859c60e-7775-45c4-983a-4e1bb9eee3ed
+    m_ActionName: Player/Touch[/Touchscreen/primaryTouch/press]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

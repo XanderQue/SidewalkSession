@@ -40,15 +40,50 @@ public class AdjustShaderSpeed : MonoBehaviour
     private void updateUV()
     {
         Vector2 speed;
+
         foreach (Material material in materials)
         {
-            if (material.HasProperty("MoveX") && material.HasProperty("uv_Offset"))
+            if (material.HasProperty("SpeedScroll") && material.HasProperty("uv_Offset"))
             {
 
-                speed = material.GetVector("MoveX");
+                speed = material.GetVector("SpeedScroll");
+                
                 uvCoords = material.GetVector("uv_Offset");
-                uvCoords += speed * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
-                uvCoords.x = uvCoords.x % 1.0f;
+
+                if (material.HasProperty("staticX"))
+                {
+                    if (material.GetInt("staticX") == 1)
+                    {
+                        uvCoords.x += speed.x * Time.deltaTime;
+                    }
+                    else
+                    {
+                        uvCoords.x += speed.x * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
+                    }
+                    uvCoords.x = uvCoords.x % 1.0f;
+                }
+                else {
+                    uvCoords.x += speed.x * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
+                    uvCoords.x = uvCoords.x % 1.0f;
+                }
+                if (material.HasProperty("staticY"))
+                {
+                    if (material.GetInt("staticY") == 1)
+                    {
+                        Debug.Log("staticY" + speed);
+                        uvCoords.y += speed.y * Time.deltaTime;
+                    }
+                    else
+                    {
+                        uvCoords.y += speed.y * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
+                    }
+                    uvCoords.y = uvCoords.y % 1.0f;
+                }
+                else 
+                {
+                    uvCoords.y += speed.y * Time.deltaTime * GameLogic.global_SpeedMultiplyer;
+                    uvCoords.y = uvCoords.y % 1.0f;
+                }
                 material.SetVector("uv_Offset", uvCoords);
             }
         }
