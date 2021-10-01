@@ -676,6 +676,10 @@ MonoBehaviour:
     m_ActionId: 9ad0e9aa-9e5b-4db6-b260-31e0c8f8c1f8
     m_ActionName: Player/StartButton
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c859c60e-7775-45c4-983a-4e1bb9eee3ed
+    m_ActionName: Player/Touch[/Touchscreen/primaryTouch/press]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1446225787}
         m_MethodName: startGame
@@ -688,8 +692,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: c859c60e-7775-45c4-983a-4e1bb9eee3ed
-    m_ActionName: Player/Touch[/Touchscreen/primaryTouch/press]
+    m_ActionId: f95af774-1d89-4ef7-853e-f306ab2d62b1
+    m_ActionName: Player/TouchPress[/Touchscreen/primaryTouch/press]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce916ded-2a7f-47df-a5c1-e517c2043231
+    m_ActionName: Player/TouchPosition[/Touchscreen/primaryTouch/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
