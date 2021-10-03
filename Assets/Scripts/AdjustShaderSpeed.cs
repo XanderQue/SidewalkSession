@@ -70,7 +70,6 @@ public class AdjustShaderSpeed : MonoBehaviour
                 {
                     if (material.GetInt("staticY") == 1)
                     {
-                        Debug.Log("staticY" + speed);
                         uvCoords.y += speed.y * Time.deltaTime;
                     }
                     else

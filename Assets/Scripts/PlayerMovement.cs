@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.EnhancedTouch;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public bool alive = true;
 
     [SerializeField]
-    public Vector2  fowardForce = new Vector2(1.0f,0.0f);
+    public Vector2 fowardForce = new Vector2(1.0f, 0.0f);
 
     private int onlyGroundLayer = 13;//this is to change to the physics tag that ignores all objects but the ground.
     private int playerLayer = 9;
@@ -57,16 +58,21 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         playerActionControls.Enable();
+        //TouchSimulation.Enable();
     }
 
     private void OnDisable()
     {
         playerActionControls.Disable();
+        //TouchSimulation.Disable();
 
     }
     // Start is called before the first frame update
     void Start()
     {
+        playerActionControls.Player.TouchPress.started += ctx => StartTouch(ctx);
+        playerActionControls.Player.TouchPress.started += ctx => EndTouch(ctx);
+
         startPos = new Vector2(0, 0);
         startPos.x = transform.position.x;
         startPos.y = transform.position.y;
@@ -85,13 +91,13 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Y Velocity", velocity);
         if (!grounded && rigBody.velocity.y < 0.0f)
         {
-            if (groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[]{"Ground","Rideable"})))
+            if (groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[] { "Ground", "Rideable" })))
             {
                 rigBody.velocity.Set(0.0f, 0.0f);
                 grounded = true;
                 PlayLandAudio();
             }
-            
+
 
         }
         anim.SetBool("Grounded", grounded);
@@ -112,25 +118,24 @@ public class PlayerMovement : MonoBehaviour
                     anim.SetBool("FrontShuv", true);
 
                 }
-                else 
+                else
                 {
                     anim.SetBool("Ollie", true);
                 }
-                
+
             }
         }
 
-        
-        
+
+
     }
     public void Jump()
     {
-            
-            rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
-            PlayPopAudio();
-            
-        
-        
+
+        rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
+        PlayPopAudio();
+
+
     }
 
     public void MoveHorizontal(int direction)
@@ -155,9 +160,9 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                     footDown();
-                    if(GameLogic.global_SpeedMultiplyer > 1.0f + (gameLogic.score * 0.005f))
+                    if (GameLogic.global_SpeedMultiplyer > 1.0f + (gameLogic.score * 0.005f))
                         gameLogic.speedMult -= 0.1f;
-                
+
                     anim.Play("slow");
                 }
                 canPush = false;
@@ -194,17 +199,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayLandAudio()
     {
-        audioSource.PlayOneShot(land);    
+        audioSource.PlayOneShot(land);
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //if hazad then fall
-       
-        if (collision.tag == "hazard" )
+
+        if (collision.tag == "hazard")
         {
             alive = false;
-            
+
             gameLogic.GameOver();
             rigBody.AddRelativeForce(fowardForce);
             fall();
@@ -218,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
 
     void fall()
     {
-        if(spawnedBoard == null)
+        if (spawnedBoard == null)
             spawnedBoard = Instantiate(skateboard);
         anim.Play("FallFoward");
         PlayPopAudio();
@@ -226,7 +231,7 @@ public class PlayerMovement : MonoBehaviour
         gameObject.layer = onlyGroundLayer;
         fell = true;
         StartCoroutine(WaitToCheckGround());
-        
+
     }
     IEnumerator WaitToCheckGround()
     {
@@ -278,16 +283,30 @@ public class PlayerMovement : MonoBehaviour
         {
             StartCoroutine(waitFlash(count));
         }
-            
-        else 
+
+        else
         {
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
     }
 
+    //Make sure you allow for touch simulation from mouse in input debug
     public void checkTouch(InputAction.CallbackContext context)
     {
-        Debug.Log("checkTouch"+ context.phase);
+        //Debug.Log("checkTouch : " + context.action.name);
+    }
+    private void StartTouch(InputAction.CallbackContext context)
+    {
+
+        //Debug.Log("Touch start : " + playerActionControls.Player.TouchPosition.ReadValue<Vector2>());
+    }
+    private void EndTouch(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Touch end : " + playerActionControls.Player.TouchPosition.ReadValue<Vector2>());
+    }
+    private void FingerDown(Finger finger)
+    {
+        //Debug.Log("Finger : " + finger.screenPosition);
     }
 }
