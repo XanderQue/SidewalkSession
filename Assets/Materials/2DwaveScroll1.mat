@@ -94,7 +94,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - uv_Offset: {r: 0.92719823, g: 0.19947828, b: 0, a: 0}
+    - uv_Offset: {r: 0.06469847, g: 0.51197803, b: 0, a: 0}
 --- !u!114 &9109733223711744915
 MonoBehaviour:
   m_ObjectHideFlags: 11
