@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.41, y: 0}
+  m_Offset: {x: -0.02, y: -0.23}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5}
+  m_Size: {x: 1.46, y: 0.25}
   m_EdgeRadius: 0
 --- !u!1 &185417220889566061
 GameObject:
@@ -118,13 +118,24 @@ MonoBehaviour:
   pop: {fileID: 8300000, guid: d5475fa1f5e393a47ba9e38e11296078, type: 3}
   land: {fileID: 8300000, guid: 30e48ac14f6c5a94db4cb4196c9c4224, type: 3}
   audioSource: {fileID: 462418512}
-  grounded: 1
+  grounded: 0
   jumpForce: 5.5
-  pushSpeed: 50
+  pushSpeed: 75
   velocity: 0
+  canPush: 1
   jumpMode: 1
   gameLogic: {fileID: 0}
   alive: 1
+  fowardForce: {x: 50, y: 150}
+  fell: 0
+  waitToCheckGround: 0
+  xDeadPosition: -14
+  xSpeed: -7
+  canSpawn: 0
+  sprtRenderer: {fileID: 185417220889566059}
+  skateboard: {fileID: 2019296193102390058, guid: 4ca156c5033b2184d821e96020336b56,
+    type: 3}
+  spawnedBoard: {fileID: 0}
 --- !u!61 &185417220889566062
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -200,8 +211,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 185417220889566057}
-        m_MethodName: TriggerJump
+      - m_Target: {fileID: 0}
+        m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -211,8 +222,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: RestartGame
+      - m_Target: {fileID: 185417220889566057}
+        m_MethodName: TriggerJump
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -254,6 +265,56 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5db238be-e637-40aa-9f8b-90f9562fbf88
     m_ActionName: Player/Speed Up[/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 185417220889566057}
+        m_MethodName: FootUp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 31838acd-51f9-4bf4-b58b-8f6d72f886ac
+    m_ActionName: Player/StopSlowingDown[/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: PauseGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6882453a-f665-4228-b532-8ecb77211a0d
+    m_ActionName: Player/Pause[/Keyboard/escape,/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 16841701-a23e-445a-a8d0-e4037e08f080
+    m_ActionName: Player/Quit[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9ad0e9aa-9e5b-4db6-b260-31e0c8f8c1f8
+    m_ActionName: Player/StartButton
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c859c60e-7775-45c4-983a-4e1bb9eee3ed
+    m_ActionName: Player/Touch[/Touchscreen/press]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f95af774-1d89-4ef7-853e-f306ab2d62b1
+    m_ActionName: Player/TouchPress[/Touchscreen/primaryTouch/press]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce916ded-2a7f-47df-a5c1-e517c2043231
+    m_ActionName: Player/TouchPosition[/Touchscreen/primaryTouch/position]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -316,7 +377,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 24
   m_Sprite: {fileID: 5021790614282157456, guid: 7fd26af0204b42f49be1e2d154fc0315,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -450,7 +511,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1790718780509469736}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.52457523, y: 0.15608323, z: 0}
+  m_LocalPosition: {x: -0.5245752, y: 0.15608323, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 185417220889566060}
@@ -494,7 +555,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 23
   m_Sprite: {fileID: -4276803807578391156, guid: 7fd26af0204b42f49be1e2d154fc0315,
     type: 3}
   m_Color: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
@@ -576,7 +637,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: 22
   m_Sprite: {fileID: -4276803807578391156, guid: 7fd26af0204b42f49be1e2d154fc0315,
     type: 3}
   m_Color: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
@@ -614,7 +675,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6541291326593909100}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.53300714, y: 0.15799999, z: 0}
+  m_LocalPosition: {x: 0.5330071, y: 0.15799999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 185417220889566060}
@@ -658,7 +719,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 23
   m_Sprite: {fileID: -4276803807578391156, guid: 7fd26af0204b42f49be1e2d154fc0315,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -696,7 +757,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7439905369872241340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40909195, y: 0.113536835, z: 0}
+  m_LocalPosition: {x: -0.4090919, y: 0.113536835, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 185417220889566060}
@@ -740,7 +801,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 24
   m_Sprite: {fileID: -4276803807578391156, guid: 7fd26af0204b42f49be1e2d154fc0315,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

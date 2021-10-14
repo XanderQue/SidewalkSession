@@ -31,7 +31,7 @@ public class JumpObject : MonoBehaviour
 
             gameLogic.ScorePopUpTextSet(Mathf.RoundToInt(gameLogic.speedMult * points));
 
-            gameLogic.updateScore();
+            gameLogic.UpdateScore();
         }
 
     }

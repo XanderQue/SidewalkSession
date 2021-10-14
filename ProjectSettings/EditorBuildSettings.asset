@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/SpaceMacawSplash.unity
+    guid: 4c706c2bbb4047d4988e2cf0e7544e28
+  - enabled: 1
     path: Assets/Scenes/StartScreen.unity
     guid: 29ae2b5c22c5c724b89ed2fe72308d03
   - enabled: 1
-    path: Assets/Scenes/LandingPage.unity
+    path: Assets/Scenes/GameLoop.unity
     guid: b2f13546d07652348b1dca54ca7c486e
   m_configObjects: {}

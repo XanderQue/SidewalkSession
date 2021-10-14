@@ -25,7 +25,7 @@ public class MoveObject : MonoBehaviour
     void Update()
     {
         MoveHorizontal();
-        checkPosition();
+        CheckPosition();
     }
 
     void MoveHorizontal()
@@ -35,7 +35,7 @@ public class MoveObject : MonoBehaviour
         transform.position = newPos;
     }
 
-    void checkPosition()
+    void CheckPosition()
     {
         if(transform.position.x < xDeadPosition)
         {

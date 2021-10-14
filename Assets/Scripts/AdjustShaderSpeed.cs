@@ -13,7 +13,7 @@ public class AdjustShaderSpeed : MonoBehaviour
     public Vector2 uvCoords = new Vector2(0, 0);
     void Start()
     {
-        setShaderSpeed();
+        SetShaderSpeed();
     }
 
     // Update is called once per frame
@@ -23,13 +23,13 @@ public class AdjustShaderSpeed : MonoBehaviour
         {
             if (currentSpeed != GameLogic.global_SpeedMultiplyer)
             {
-                setShaderSpeed();
+                SetShaderSpeed();
             }
         }
-        updateUV();
+        UpdateUV();
     }
 
-    public void setShaderSpeed()
+    public void SetShaderSpeed()
     {
         currentSpeed = GameLogic.global_SpeedMultiplyer;
         foreach (Material material in materials)
@@ -37,7 +37,7 @@ public class AdjustShaderSpeed : MonoBehaviour
             material.SetFloat(shaderPropertyReference, GameLogic.global_SpeedMultiplyer);
         }
     }
-    private void updateUV()
+    private void UpdateUV()
     {
         Vector2 speed;
 

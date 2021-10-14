@@ -1,18 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class startScreenLogic : MonoBehaviour
+public class StartScreenLogic : MonoBehaviour
 {
-    public Canvas canvas;
-    public TextMeshProUGUI pressSpace;
+    public Canvas mainMenuCanvas;
+    public Canvas optionsMenuCanvas;
+
+    //main menu buttons
+    public Button startBttn;
+    public Button optionsBttn;
+    public Button quitBttn;
+
+ 
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(waitFlash());
+        //do not include parenthesis in add listener when specifying 
+        //function to call
+        startBttn.onClick.AddListener(StartGame);
+        optionsBttn.onClick.AddListener(OpenOptions);
+        quitBttn.onClick.AddListener(QuiteGame);
+
+       
     }
 
     // Update is called once per frame
@@ -21,19 +34,25 @@ public class startScreenLogic : MonoBehaviour
         
     }
 
-    public void startGame()
+    public void StartGame()
     {
         //canvas.enabled = false;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
+        mainMenuCanvas.enabled = false;
     }
 
-    IEnumerator waitFlash()
+    public void OpenOptions()
     {
-        yield return new WaitForSeconds(0.75f);
-        pressSpace.alpha = 0.0f;
-        yield return new WaitForSeconds(0.5f);
-        pressSpace.alpha = 1.0f;
-        StartCoroutine(waitFlash());
-        
+        mainMenuCanvas.enabled = false;
+        optionsMenuCanvas.enabled = true;
     }
+
+    public void QuiteGame()
+    {
+        mainMenuCanvas.enabled = false;
+        //exit game
+        Application.Quit();
+    }
+
+   
 }

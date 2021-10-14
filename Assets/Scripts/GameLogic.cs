@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameLogic : MonoBehaviour
 {
     public static bool paused = false;
-    public static float global_SpeedMultiplyer = 1.0f;
+    public static float global_SpeedMultiplyer = 0.775f;
 
     public PlayerMovement playerMovementScript;
     public GameObject player;
@@ -16,8 +16,6 @@ public class GameLogic : MonoBehaviour
     public SpawnObjectHere trashCanSpawner;
 
     public Text destroyedText;
-    public Text pauseText;
-    public Text pauseQuitText;
     public Text scoreText;
     public Text scorePopUpText;
     public Text speedText;
@@ -33,12 +31,25 @@ public class GameLogic : MonoBehaviour
     private float playerXPos;
     private float flashTime = .75f;
 
-    private List<Coroutine> coroutines;
+    public Canvas gameCanvas;
+    public Canvas pauseCanvas;
+
+    public Canvas continueCanvas;
+
+    public Button continueBttn;
+    public Button quitBttn;
+    public Text continueScore;
+
+    public static float timeScaleStatic = 0.825f;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = timeScaleStatic;
+        continueBttn.onClick.AddListener(RestartGame);
+        quitBttn.onClick.AddListener(ExitToMain);
+
         if (player == null
             || destroyedText == null)
         {
@@ -46,16 +57,24 @@ public class GameLogic : MonoBehaviour
         }
         else
         {
-            coroutines = new List<Coroutine>();   
             playerXPos = player.transform.position.x;
             playerRig = player.GetComponent<Rigidbody2D>();
         }
         playedAudio = false;
         if (paused)
         {
-            pauseGame();
+            PauseGame();
         }
-        
+
+        //set Audio
+        AudioListener.volume = staticOptions.volume / 100.0f;
+        if (!staticOptions.musicOn)
+        {
+            AudioListener.volume = 0.0f;
+        }
+        Debug.Log("Start Music : " + staticOptions.volume + " : " + AudioListener.volume);
+
+
     }
 
     // Update is called once per frame
@@ -79,9 +98,9 @@ public class GameLogic : MonoBehaviour
             speedText.text = (Mathf.RoundToInt(global_SpeedMultiplyer*100)/100.0f).ToString();
 
         }
-        if (checkAlive())
+        if (CheckAlive())
         {
-            speedUp();
+            SpeedUp();
         }
     }
 
@@ -90,7 +109,10 @@ public class GameLogic : MonoBehaviour
         if (!playedAudio)
         {
             playedAudio = true;
-            destroyedText.text = "Game Over";
+            gameCanvas.enabled = false;
+            continueCanvas.enabled = true;
+            //set continue canvas score
+            continueScore.text = score.ToString();
             audioSource.Play();
             alive = false;
             playerRig.Sleep();
@@ -99,120 +121,87 @@ public class GameLogic : MonoBehaviour
         
     }
 
-    public void updateScore()
+    public void UpdateScore()
     {
         scoreText.text = score.ToString();
-        //speedMult += 0.01f;
         numJumps++;
     }
 
-    public int getNumJumps()
+    public int GetNumJumps()
     {
         return numJumps;
     }
     //After your match ends the spawnObject will stop. Start polling for restart press.
     public void RestartGame() // Presss from input
     {
+
         if (!alive && playerMovementScript.canSpawn)
         {
-            destroyedText.text = "";
+            continueCanvas.enabled = false;
+            gameCanvas.enabled = true;
             score = 0;
             numJumps = -1; 
             playedAudio = false;
             alive = true;
             
-            updateScore();
+            UpdateScore();
 
-            playerMovementScript.respawn();
+            playerMovementScript.Respawn();
         }
         
     }
 
-    //public checkAlive
+    //public CheckAlive
     //This is used sent alive status.
-    public bool checkAlive()
+    public bool CheckAlive()
     {
         return alive;
     }
 
-    public void pauseGame()
+    public void PauseGame()
     {
 
         if (alive)
         {
 
-            if (!paused)
+            if (!paused) // pause
             {
                 Time.timeScale = 0.0f;
-                AudioListener.pause = true;
+                //AudioListener.pause = true;
                 paused = true;
-                //start pause flash coroutine
-               coroutines.Add(StartCoroutine(pauseFlash()));
+                gameCanvas.enabled = false;
+                pauseCanvas.enabled = true;
             }
-            else if (paused)
+            else if (paused) // unpause
             {
-                Debug.Log("unpause");
-                pauseText.text = "";
-                pauseQuitText.text = "";
-                Time.timeScale = 1.0f;
-                AudioListener.pause = false;
+                Time.timeScale = timeScaleStatic;
+               // AudioListener.pause = false;
                 paused = false;
-                foreach (Coroutine corout in coroutines)
-                {
-                    StopCoroutine(corout);
-                }
+                gameCanvas.enabled = true;
+                pauseCanvas.enabled = false;
             }
         }
         else 
         {
-            pauseText.text = "";
-            pauseQuitText.text = "";
-            Time.timeScale = 1.0f;
-            AudioListener.pause = false;
+            Time.timeScale = timeScaleStatic;
+           // AudioListener.pause = false;
             paused = false;
+            gameCanvas.enabled = true;
+            pauseCanvas.enabled = false;
         }
     }
 
-    IEnumerator pauseFlash()
-    {
-        if (paused)
-        {
-            pauseText.text = "Paused";
-            pauseQuitText.text = "Press \'Q\' or Select(Gamepad) to quit to title screen";
-            yield return new WaitForSecondsRealtime(flashTime);
-            pauseText.text = "";
 
-            yield return new WaitForSecondsRealtime(flashTime);
-            coroutines.Add(StartCoroutine(pauseFlash()));
-            
-           
-        }
-        else
-        {
-            pauseText.text = "";
-            pauseQuitText.text = "";
-        }
-
-    }
 
     
-    private void speedUp()
+    private void SpeedUp()
     {
-        if (speedMult < 1.0f + score *0.005f)
+        if (speedMult < 1.0f)
         {
             speedMult += 0.1f * Time.deltaTime;
         }
     }
 
-    public void quiteToTitle()
-    {
-        if(paused)
-        {
-            pauseGame();
-            SceneManager.LoadScene(0);
-
-        }
-    }
 
     private void FadeAndAnimateScorePopUP()
     {
@@ -232,5 +221,10 @@ public class GameLogic : MonoBehaviour
         newColor.a = 1.0f;
         scorePopUpText.color = newColor;
         scorePopUpText.text = "+"+ score.ToString();
+    }
+
+    public void ExitToMain()
+    {
+        SceneManager.LoadScene(1);
     }
 }

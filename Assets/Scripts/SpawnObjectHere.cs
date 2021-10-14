@@ -45,7 +45,7 @@ public class SpawnObjectHere : MonoBehaviour
         {
             
             gameLogic = GameObject.FindObjectOfType<GameLogic>();
-            startSpawn();
+            StartSpawn();
         }
     }
 
@@ -59,26 +59,26 @@ public class SpawnObjectHere : MonoBehaviour
     {
         if (!spawning)
         {
-            startSpawn();
+            StartSpawn();
         }
     }
     //To start spawning.
     //After game ends use Game Logic script to start spawning the objects again.
-    public void startSpawn()
+    public void StartSpawn()
     {
         firstTime = true;
-        bool alive = gameLogic.checkAlive();
+        bool alive = gameLogic.CheckAlive();
         if ( (alive || alwaysSpawning) && !spawning)
         {
             pauseTime = SetWaitTimes();
             spawning = true;
-            StartCoroutine(waitToSpawn(pauseTime));
+            StartCoroutine(WaitToSpawn(pauseTime));
         }
            
     }
 
 
-    IEnumerator waitToSpawn(float waitTime)
+    IEnumerator WaitToSpawn(float waitTime)
     {
 
         if (firstTime)
@@ -87,11 +87,11 @@ public class SpawnObjectHere : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             firstTime = false;
         }
-        GameObject toSpawn = getGObject();
+        GameObject toSpawn = GetGObject();
 
         GameObject spawn = Instantiate(toSpawn);
 
-        Vector2 spawnPosition = getPosition();
+        Vector2 spawnPosition = GetPosition();
         Vector2 spawnSize = Vector2.one * SetSize();
 
         spawn.transform.localScale = spawnSize;
@@ -99,10 +99,10 @@ public class SpawnObjectHere : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
-        if ((gameLogic.checkAlive() || alwaysSpawning ) && spawning)
+        if ((gameLogic.CheckAlive() || alwaysSpawning ) && spawning)
         {
             pauseTime = SetWaitTimes();
-            StartCoroutine(waitToSpawn(pauseTime));
+            StartCoroutine(WaitToSpawn(pauseTime));
         }
         else
         {
@@ -197,7 +197,7 @@ public class SpawnObjectHere : MonoBehaviour
         return 1.0f + (GameLogic.global_SpeedMultiplyer * 0.01f);
     }
 
-    private GameObject getGObject()
+    private GameObject GetGObject()
     {
         //check
         if (gameObjectList.Count > 0 && gameObjectList != null)
@@ -230,7 +230,7 @@ public class SpawnObjectHere : MonoBehaviour
         //else
         return null;
     }
-    private Vector2 getPosition()
+    private Vector2 GetPosition()
     {
         //check
         if (positionList.Count > 0 && positionList != null)

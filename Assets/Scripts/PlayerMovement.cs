@@ -70,8 +70,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerActionControls.Player.TouchPress.started += ctx => StartTouch(ctx);
-        playerActionControls.Player.TouchPress.started += ctx => EndTouch(ctx);
+        //playerActionControls.Player.TouchPress.started += ctx => StartTouch(ctx);
+        //playerActionControls.Player.TouchPress.started += ctx => EndTouch(ctx);
 
         startPos = new Vector2(0, 0);
         startPos.x = transform.position.x;
@@ -93,6 +93,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if (groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[] { "Ground", "Rideable" })))
             {
+                if (Time.timeScale != GameLogic.timeScaleStatic)
+                {
+                    Time.timeScale = GameLogic.timeScaleStatic;
+                }
+                
                 rigBody.velocity.Set(0.0f, 0.0f);
                 grounded = true;
                 PlayLandAudio();
@@ -112,11 +117,11 @@ public class PlayerMovement : MonoBehaviour
             {
 
                 grounded = false;
-                if ((gameLogic.getNumJumps() + 1) % 5 == 0)
+                if ((gameLogic.GetNumJumps() + 1) % 5 == 0)
                 {
                     //front shuv - extra points and fan fare
                     anim.SetBool("FrontShuv", true);
-
+                    Time.timeScale = 0.56789f;
                 }
                 else
                 {
@@ -159,7 +164,7 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     //rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
-                    footDown();
+                    FootDown();
                     if (GameLogic.global_SpeedMultiplyer > 1.0f + (gameLogic.score * 0.005f))
                         gameLogic.speedMult -= 0.1f;
 
@@ -170,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
-    public void footUp()
+    public void FootUp()
     {
         if (anim != null)
         {
@@ -180,7 +185,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-    public void footDown()
+    public void FootDown()
     {
         if (anim != null)
         {
@@ -204,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        //if hazad then fall
+        //if hazad then Fall
 
         if (collision.tag == "hazard")
         {
@@ -212,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
             gameLogic.GameOver();
             rigBody.AddRelativeForce(fowardForce);
-            fall();
+            Fall();
 
         }
     }
@@ -221,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
     {
     }
 
-    void fall()
+    void Fall()
     {
         if (spawnedBoard == null)
             spawnedBoard = Instantiate(skateboard);
@@ -240,7 +245,7 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         waitToCheckGround = false;
     }
-    public void respawn()
+    public void Respawn()
     {
         canSpawn = false;
 
@@ -254,7 +259,7 @@ public class PlayerMovement : MonoBehaviour
         transform.SetPositionAndRotation(startPos, rot);
         rigBody.WakeUp();
         anim.Play("Ride");
-        StartCoroutine(waitFlash(flashTime));
+        StartCoroutine(WaitFlash(flashTime));
     }
 
     public void MoveAfterFall()
@@ -262,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded && fell && transform.position.x > xDeadPosition)
         {
-            //Debug.Log("Move after fall");
+            //Debug.Log("Move after Fall");
             Vector2 newPos = transform.position;
             newPos.x += xSpeed * Time.deltaTime;
             transform.position = newPos;
@@ -271,7 +276,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    IEnumerator waitFlash(int count)
+    IEnumerator WaitFlash(int count)
     {
 
         sprtRenderer.enabled = false;
@@ -281,7 +286,7 @@ public class PlayerMovement : MonoBehaviour
         count--;
         if (count > 0)
         {
-            StartCoroutine(waitFlash(count));
+            StartCoroutine(WaitFlash(count));
         }
 
         else
@@ -291,22 +296,4 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    //Make sure you allow for touch simulation from mouse in input debug
-    public void checkTouch(InputAction.CallbackContext context)
-    {
-        //Debug.Log("checkTouch : " + context.action.name);
-    }
-    private void StartTouch(InputAction.CallbackContext context)
-    {
-
-        //Debug.Log("Touch start : " + playerActionControls.Player.TouchPosition.ReadValue<Vector2>());
-    }
-    private void EndTouch(InputAction.CallbackContext context)
-    {
-        //Debug.Log("Touch end : " + playerActionControls.Player.TouchPosition.ReadValue<Vector2>());
-    }
-    private void FingerDown(Finger finger)
-    {
-        //Debug.Log("Finger : " + finger.screenPosition);
-    }
 }
