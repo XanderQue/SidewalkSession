@@ -1,0 +1,5 @@
+yellow-light 	= #FFFFA6
+green		= #BDF271
+turqouise	= #29D9C2
+blue		= #01A2A6
+purple-dark	= #2f2933

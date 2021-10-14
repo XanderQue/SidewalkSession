@@ -83,7 +83,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - global_SpeedMultiplyer: 1.8000002
+    - global_SpeedMultiplyer: 1
     - myTimer: 0
     m_Colors:
     - ColorOvlerlay: {r: 0, g: 0, b: 0, a: 0}
@@ -93,4 +93,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
-    - uv_Offset: {r: 0.9684307, g: 0, b: 0, a: 0}
+    - uv_Offset: {r: 0.79226756, g: 0, b: 0, a: 0}
