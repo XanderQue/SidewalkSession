@@ -9,21 +9,25 @@ public class GameLogic : MonoBehaviour
 {
     public static bool paused = false;
     public static float global_SpeedMultiplyer = 0.775f;
+    public static string playerPrefs_HighScore = "player_highscore";
 
     public PlayerMovement playerMovementScript;
     public GameObject player;
     public Rigidbody2D playerRig;
     public SpawnObjectHere trashCanSpawner;
+    public AdManager adManager;
 
     public Text destroyedText;
     public Text scoreText;
+    public Text highscoreText;
     public Text scorePopUpText;
     public Text speedText;
     public AudioSource audioSource;
     public int score = 0;
+    public int highscore = 0;
     private int numJumps = 0;
 
-    public float speedMult = 1.0f;
+    public float speedMult = .775f;
     public float yMax = -11.0f;
 
     public bool alive = true;
@@ -39,13 +43,19 @@ public class GameLogic : MonoBehaviour
     public Button continueBttn;
     public Button quitBttn;
     public Text continueScore;
+    public Text continuePopUpText;
 
-    public static float timeScaleStatic = 0.825f;
+    public static float timeScaleStatic = 1.0f;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (PlayerPrefs.HasKey(playerPrefs_HighScore))
+        {
+            highscore = PlayerPrefs.GetInt(playerPrefs_HighScore);
+            highscoreText.text = highscore.ToString();
+        }
         Time.timeScale = timeScaleStatic;
         continueBttn.onClick.AddListener(RestartGame);
         quitBttn.onClick.AddListener(ExitToMain);
@@ -108,6 +118,26 @@ public class GameLogic : MonoBehaviour
     {
         if (!playedAudio)
         {
+            if (PlayerPrefs.HasKey(playerPrefs_HighScore))
+            {
+                if (PlayerPrefs.GetInt(playerPrefs_HighScore) < score)
+                {
+                    PlayerPrefs.SetInt(playerPrefs_HighScore, score);
+                    PlayerPrefs.Save();
+                    highscore = score;
+                    highscoreText.text = highscore.ToString();
+                    ScorePopUpTextSet(true, "NEW HIGH SCORE!");
+                }
+                
+            }
+            else
+            {
+                PlayerPrefs.SetInt(playerPrefs_HighScore, score);
+                PlayerPrefs.Save();
+                highscore = score;
+                highscoreText.text = highscore.ToString();
+                ScorePopUpTextSet(true, "NEW HIGH SCORE!");
+            }
             playedAudio = true;
             gameCanvas.enabled = false;
             continueCanvas.enabled = true;
@@ -117,6 +147,7 @@ public class GameLogic : MonoBehaviour
             alive = false;
             playerRig.Sleep();
             speedMult = 1.0f;
+            adManager.PlayAd();
         }
         
     }
@@ -140,6 +171,7 @@ public class GameLogic : MonoBehaviour
             continueCanvas.enabled = false;
             gameCanvas.enabled = true;
             score = 0;
+            highscoreText.text = highscore.ToString();
             numJumps = -1; 
             playedAudio = false;
             alive = true;
@@ -212,15 +244,28 @@ public class GameLogic : MonoBehaviour
             newColor.a -= 0.775f * Time.deltaTime;
             scorePopUpText.color = newColor;
         }
-
+        if (continuePopUpText.color.a > 0.0f)
+        {
+            Color newColor = continuePopUpText.color;
+            newColor.a -= 0.775f * Time.deltaTime;
+            continuePopUpText.color = newColor;
+        }
 
     }
-    public void ScorePopUpTextSet(int score)
+    public void ScorePopUpTextSet(bool highscore ,string score)
     {
         Color newColor = scorePopUpText.color;
         newColor.a = 1.0f;
-        scorePopUpText.color = newColor;
-        scorePopUpText.text = "+"+ score.ToString();
+        if (highscore)
+        {
+            continuePopUpText.color = newColor;
+            continuePopUpText.text = score;
+        }
+        else {
+            scorePopUpText.color = newColor;
+            scorePopUpText.text = "+" + score;
+        }
+        
     }
 
     public void ExitToMain()

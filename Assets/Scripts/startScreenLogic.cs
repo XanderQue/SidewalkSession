@@ -37,7 +37,7 @@ public class StartScreenLogic : MonoBehaviour
     public void StartGame()
     {
         //canvas.enabled = false;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);//3 is loading scene 10/24/2021
         mainMenuCanvas.enabled = false;
     }
 

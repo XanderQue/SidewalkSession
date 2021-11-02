@@ -8,28 +8,47 @@ public class SpawnObjectHere : MonoBehaviour
 
     public int timesToSpawn = -1;
 
-
+    [Header("Game Objects to spawn")]
     public List<GameObject> gameObjectList;
     private int gameObjectIndex = 0;
     public bool rand_GameObjectIndex = false;
 
+    [Header("Size of objects")]
     public List<float> sizesOfObjectsList;
     private int sizeObjIndex = 0;
     public bool rand_SizeIndex = false;
     public bool randSize_BetweenValsOnly = false;
 
+    [Header("Wait time between spawns")]
+
+    [Tooltip("If not using wait time use Distance Between Objects instead")]
+    public bool useWaitTime = true;
+    [Tooltip("If not using wait time use Distance Between Objects instead")]
     public List<float> waitTimesList;
     private int waitTimeIndex = 0;
+    [Tooltip("If not using wait time use Distance Between Objects instead")]
     public bool rand_WaitTImeIndex = false;
+    [Tooltip("If not using wait time use Distance Between Objects instead")]
     public bool randWaitTime_BetweenValsOnly = false;
 
+    [Header("Distance between Objects")]
 
+    [Tooltip("DBO is Ignored if using wait time")]
+    public List<float> distBetweenObjsList;
+    private int distBetweenObjsIndex = 0;
+    [Tooltip("DBO is Ignored if using wait time")]
+    public bool rand_DBObj_Index = false;
+    [Tooltip("DBO is Ignored if using wait time")]
+    public bool randDBObjs_BetweenValsOnly = false;
+
+    [Header("Position to spawn.")]
     public List<Vector2> positionList;
     private int positionIndex = 0;
     public bool rand_PositionIndex = false;
     public bool randPosition_BetweenValsOnly = false;
 
-    public float pauseTime = 5.0f;
+    [Tooltip("Current wait time : ")]
+    private float pauseTime = 5.0f;
 
 
     [SerializeField]
@@ -70,27 +89,27 @@ public class SpawnObjectHere : MonoBehaviour
         bool alive = gameLogic.CheckAlive();
         if ( (alive || alwaysSpawning) && !spawning)
         {
-            pauseTime = SetWaitTimes();
             spawning = true;
-            StartCoroutine(WaitToSpawn(pauseTime));
+            StartCoroutine(WaitToSpawn());
         }
            
     }
 
 
-    IEnumerator WaitToSpawn(float waitTime)
+    IEnumerator WaitToSpawn()
     {
+        GameObject toSpawn = GetGObject();
 
+        
         if (firstTime)
         {
             
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(SetWaitTimes(toSpawn));
             firstTime = false;
         }
-        GameObject toSpawn = GetGObject();
 
         GameObject spawn = Instantiate(toSpawn);
-
+        float waitTime = SetWaitTimes(spawn);
         Vector2 spawnPosition = GetPosition();
         Vector2 spawnSize = Vector2.one * SetSize();
 
@@ -101,8 +120,8 @@ public class SpawnObjectHere : MonoBehaviour
 
         if ((gameLogic.CheckAlive() || alwaysSpawning ) && spawning)
         {
-            pauseTime = SetWaitTimes();
-            StartCoroutine(WaitToSpawn(pauseTime));
+            pauseTime = waitTime;
+            StartCoroutine(WaitToSpawn());
         }
         else
         {
@@ -154,10 +173,15 @@ public class SpawnObjectHere : MonoBehaviour
         return 1;
     }
 
-    private float SetWaitTimes()
+    private float SetWaitTimes(GameObject objToSpawn)
     {
+        //using wait times?
+        if(!useWaitTime)
+        {
+            return setTimeBasedOnDistance(objToSpawn);
+        }
         //check
-        if (waitTimesList.Count > 0 && waitTimesList != null)
+        else if (waitTimesList.Count > 0 && waitTimesList != null)
         {
             if (waitTimesList.Count > 1)
             {
@@ -169,14 +193,14 @@ public class SpawnObjectHere : MonoBehaviour
                         //get random index
                         int randIndex = Random.Range(0, waitTimesList.Count);
 
-                        return waitTimesList[randIndex] + (GameLogic.global_SpeedMultiplyer * 0.01f);
+                        return waitTimesList[randIndex];
                     }
                     else
                     {
                         //use index to loop (index % sise of list) to prevent walk off
                         float retValue = waitTimesList[waitTimeIndex % waitTimesList.Count];
                         waitTimeIndex++;
-                        return retValue + (GameLogic.global_SpeedMultiplyer * 0.01f);
+                        return (retValue);
                     }
                 }
                 else // random between two values only
@@ -185,16 +209,73 @@ public class SpawnObjectHere : MonoBehaviour
                     float minVal = Mathf.Min(waitTimesList[0], waitTimesList[1]);
                     float maxVal = Mathf.Max(waitTimesList[0], waitTimesList[1]);
                     //random return rand between 0 and 1
-                    return Random.Range(minVal, maxVal) + (GameLogic.global_SpeedMultiplyer * 0.01f);
+                    return Random.Range(minVal, maxVal);
                 }
             }
             else
             {
-                return waitTimesList[0]+(GameLogic.global_SpeedMultiplyer*0.01f);
+                return (waitTimesList[0]);
             }
         }
         //else
-        return 1.0f + (GameLogic.global_SpeedMultiplyer * 0.01f);
+        return 1.0f;
+    }
+
+    private float setTimeBasedOnDistance(GameObject objectToSpawn)
+    {
+        if (distBetweenObjsList.Count > 0 && distBetweenObjsList != null)
+        {
+            if (distBetweenObjsList.Count > 1)
+            {
+                if (!randDBObjs_BetweenValsOnly)
+                {
+                    // not just between 2 values
+                    if (rand_DBObj_Index)
+                    {
+                        //get random index
+                        int randIndex = Random.Range(0, distBetweenObjsList.Count);
+
+                        return getTimeFrom_DBO(distBetweenObjsList[randIndex], objectToSpawn);
+                    }
+                    else
+                    {
+                        //use index to loop (index % sise of list) to prevent walk off
+                        float retValue = distBetweenObjsList[distBetweenObjsIndex % distBetweenObjsList.Count];
+                        distBetweenObjsIndex++;
+                        return getTimeFrom_DBO(retValue, objectToSpawn);
+                    }
+                }
+                else // random between two values only
+                {
+                    //get min and max
+                    float minVal = Mathf.Min(distBetweenObjsList[0], distBetweenObjsList[1]);
+                    float maxVal = Mathf.Max(distBetweenObjsList[0], distBetweenObjsList[1]);
+                    //random return rand between 0 and 1
+                    return getTimeFrom_DBO(Random.Range(minVal, maxVal), objectToSpawn);
+                }
+            }
+            else
+            {
+               // Debug.Log("only one in DBO list" + distBetweenObjsList[0]);
+                return getTimeFrom_DBO(distBetweenObjsList[0], objectToSpawn);
+            }
+        }
+        return getTimeFrom_DBO(1.0f, objectToSpawn);
+    }
+    private float getTimeFrom_DBO(float distance, GameObject objectToSpawn)
+    {
+        
+        float speed = 1;
+        MoveObject mObject = objectToSpawn.GetComponent<MoveObject>();
+        if (mObject != null)
+        {
+            //Debug.Log("Move Object found");
+            speed = mObject.xSpeed;
+            speed = Mathf.Abs(speed);
+        }
+       // Debug.Log("Speed : "+speed+"\nDistance : "+distance);
+       // Debug.Log("Tree Wait : " + ((1/speed)*distance));
+        return ((1/speed)*distance);
     }
 
     private GameObject GetGObject()

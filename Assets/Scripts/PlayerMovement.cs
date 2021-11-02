@@ -50,6 +50,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject skateboard;
     public GameObject spawnedBoard;
 
+    //DEBUG ONLY//
+    float jumpTime = 0.0f;
+    float landTime = 0.0f;
+
     private void Awake()
     {
         playerActionControls = new PlayerActionControls();
@@ -91,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Y Velocity", velocity);
         if (!grounded && rigBody.velocity.y < 0.0f)
         {
-            if (groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[] { "Ground", "Rideable" })))
+            if ( groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[] { "Ground", "Rideable" })))
             {
                 if (Time.timeScale != GameLogic.timeScaleStatic)
                 {
@@ -121,7 +125,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //front shuv - extra points and fan fare
                     anim.SetBool("FrontShuv", true);
-                    Time.timeScale = 0.56789f;
+                    Time.timeScale = 0.775f;
                 }
                 else
                 {
@@ -137,6 +141,9 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
 
+        //DEBUG//
+        jumpTime = Time.time;
+        //DEBUG//
         rigBody.AddForce(jumpForce * Vector2.up, jumpMode);
         PlayPopAudio();
 
@@ -204,6 +211,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void PlayLandAudio()
     {
+        //DEBUG//
+        landTime = Time.time;
+        Debug.Log(landTime-jumpTime + " Air Time");
+        //DEBUG//
         audioSource.PlayOneShot(land);
     }
 
@@ -219,6 +230,10 @@ public class PlayerMovement : MonoBehaviour
             rigBody.AddRelativeForce(fowardForce);
             Fall();
 
+        }
+        if (collision.tag == "ground")
+        {
+            grounded = true;
         }
     }
 
