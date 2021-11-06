@@ -82,7 +82,7 @@ public class GameLogic : MonoBehaviour
         {
             AudioListener.volume = 0.0f;
         }
-        Debug.Log("Start Music : " + staticOptions.volume + " : " + AudioListener.volume);
+       // Debug.Log("Start Music : " + staticOptions.volume + " : " + AudioListener.volume);
 
 
     }
