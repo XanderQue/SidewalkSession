@@ -15,6 +15,7 @@ public class GameLogic : MonoBehaviour
     public GameObject player;
     public Rigidbody2D playerRig;
     public SpawnObjectHere trashCanSpawner;
+
     public AdManager adManager;
 
     public Text destroyedText;
@@ -147,7 +148,6 @@ public class GameLogic : MonoBehaviour
             alive = false;
             playerRig.Sleep();
             speedMult = 1.0f;
-            adManager.PlayAd();
         }
         
     }
@@ -168,6 +168,10 @@ public class GameLogic : MonoBehaviour
 
         if (!alive && playerMovementScript.canSpawn)
         {
+
+            adManager.PlayAd();
+
+            trashCanSpawner.DeleteJumpObjects();
             continueCanvas.enabled = false;
             gameCanvas.enabled = true;
             score = 0;
@@ -270,6 +274,9 @@ public class GameLogic : MonoBehaviour
 
     public void ExitToMain()
     {
+
+
+        adManager.PlayAd();
         SceneManager.LoadScene(1);
     }
 }

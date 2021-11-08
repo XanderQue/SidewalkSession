@@ -9,6 +9,7 @@ public class PauseScreenLogic : MonoBehaviour
 
     public GameLogic gameLogic;
 
+    public AdManager adManager;
 
     //public Canvas gameCanvas;
     public Canvas pauseCanvas;

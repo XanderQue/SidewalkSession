@@ -771,14 +771,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 9add14be781637645bf99d7b3ebf557d, type: 3}
-  m_Color: {r: 0.16078432, g: 0.8509804, b: 0.7607843, a: 1}
+  m_Color: {r: 0.7411765, g: 0.9490196, b: 0.44313726, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 9add14be781637645bf99d7b3ebf557d, type: 3}
+    m_Font: {fileID: 12800000, guid: efc4adf74bb5e904dbb5e97801bcbe9f, type: 3}
     m_FontSize: 84
     m_FontStyle: 0
     m_BestFit: 0

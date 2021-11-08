@@ -13,6 +13,8 @@ public class SpawnObjectHere : MonoBehaviour
     private int gameObjectIndex = 0;
     public bool rand_GameObjectIndex = false;
 
+    public List<GameObject> spawnedList;
+
     [Header("Size of objects")]
     public List<float> sizesOfObjectsList;
     private int sizeObjIndex = 0;
@@ -64,8 +66,10 @@ public class SpawnObjectHere : MonoBehaviour
         {
             
             gameLogic = GameObject.FindObjectOfType<GameLogic>();
+            spawnedList = new List<GameObject>();
             StartSpawn();
         }
+
     }
 
     // Update is called once per frame
@@ -109,6 +113,9 @@ public class SpawnObjectHere : MonoBehaviour
         }
 
         GameObject spawn = Instantiate(toSpawn);
+
+        spawnedList.Add(spawn);
+
         float waitTime = SetWaitTimes(spawn);
         Vector2 spawnPosition = GetPosition();
         Vector2 spawnSize = Vector2.one * SetSize();
@@ -360,6 +367,11 @@ public class SpawnObjectHere : MonoBehaviour
         }
         //else
         return this.transform.position;
+    }
+
+    public void DeleteJumpObjects()
+    {
+        spawnedList.Clear();
     }
 
 }

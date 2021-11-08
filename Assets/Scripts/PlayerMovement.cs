@@ -95,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("Y Velocity", velocity);
         if (!grounded && rigBody.velocity.y < 0.0f)
         {
+
+           
             if ( groundCheckCollider.IsTouchingLayers(LayerMask.GetMask(new string[] { "Ground", "Rideable" })))
             {
                 if (Time.timeScale != GameLogic.timeScaleStatic)
@@ -107,12 +109,24 @@ public class PlayerMovement : MonoBehaviour
                 PlayLandAudio();
             }
 
-
+            anim.SetBool("Grounded", grounded);
         }
         anim.SetBool("Grounded", grounded);
 
     }
 
+    public void landFunction()
+    {
+        if (Time.timeScale != GameLogic.timeScaleStatic)
+        {
+
+            Time.timeScale = GameLogic.timeScaleStatic;
+        }
+
+        rigBody.velocity.Set(0.0f, 0.0f);
+        grounded = true;
+        PlayLandAudio();
+    }
     public void TriggerJump()
     {
         if (!GameLogic.paused)
@@ -213,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //DEBUG//
         landTime = Time.time;
-        Debug.Log(landTime-jumpTime + " Air Time");
+        //Debug.Log(landTime-jumpTime + " Air Time");
         //DEBUG//
         audioSource.PlayOneShot(land);
     }
