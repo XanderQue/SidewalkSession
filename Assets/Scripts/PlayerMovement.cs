@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //front shuv - extra points and fan fare
                     anim.SetBool("FrontShuv", true);
-                    Time.timeScale = 0.775f;
+                    //Time.timeScale = 0.775f;
                 }
                 else
                 {
