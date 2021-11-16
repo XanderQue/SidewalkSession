@@ -10,6 +10,7 @@ public class PlayerLives : MonoBehaviour
     private int maxLives = 5;
 
     public GameLogic gameLogic;
+    public PlayerPrefsLogic playerPrefsLogic;
 
     void Start()
     {
