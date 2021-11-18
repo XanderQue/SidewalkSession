@@ -48,6 +48,8 @@ public class PlayerPrefsLogic : MonoBehaviour
 
         //Get from playerprefs
         GetPlayerPrefs();
+
+        
     }
 
     // Update is called once per frame
@@ -56,14 +58,49 @@ public class PlayerPrefsLogic : MonoBehaviour
       
     }
 
-    void GetPlayerPrefs()
+    public void GetPlayerPrefs()
     {
-
+        
         if (PlayerPrefs.HasKey("FirstTime"))
         {
-            //not first time
-            hasRA_Time_Prefs = GetRewardAdTimePrefs();
-            hasGO_Time_Prefs = GetGameOverTimePrefs();
+            //get lives
+            playerLives = PlayerPrefs.GetInt(Player_Lives_Pref);
+            if (playerLives <= 0)
+            {
+                //not first time and no lives 
+                //Do you have coins?
+                if ((hasRA_Time_Prefs = GetRewardAdTimePrefs()))//if reward ad time
+                {
+
+                    if (CheckRewardActive())
+                    {
+                        //Player can Play **************
+                    }
+                }
+
+                if (hasGO_Time_Prefs = GetGameOverTimePrefs())
+                {
+                    //if game over time then.
+                    //Cant play until game over time +24hrs
+                    // Cant play until "Game Over dayofyear + 1 "+ "Game Over time.
+                    
+                    string hour = gameOverTimeHour.ToString();
+                    string min = gameOverTimeMin.ToString();
+                    if (gameOverTimeMin < 10)
+                    {
+                        min = "0" + gameOverTimeMin.ToString();
+
+                    }
+
+                }
+
+                
+                
+            }
+            
+            
+            
+           
         }
         else 
         {
@@ -71,6 +108,8 @@ public class PlayerPrefsLogic : MonoBehaviour
             PlayerPrefs.SetInt("FirstTime", 0);
             PlayerPrefs.SetInt(Player_Lives_Pref, startingLives);
             playerLives = startingLives;
+
+
         }
     }
 
@@ -224,8 +263,7 @@ public class PlayerPrefsLogic : MonoBehaviour
     {
         //Get time now
         GetTimeNow();
-
-       
+        
 
 
     }

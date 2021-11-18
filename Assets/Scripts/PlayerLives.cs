@@ -31,11 +31,12 @@ public class PlayerLives : MonoBehaviour
     public void LooseLives(int numLivesLost)
     {
         playerLives -= numLivesLost;
-        if (playerLives < 0)
+        /*if (playerLives < 0)
         {
             //Game over must watch add
             //or watch extended video
+            
              
-        }
+        }*/
     }
 }
