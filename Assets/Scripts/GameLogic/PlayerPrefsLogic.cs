@@ -9,6 +9,7 @@ public class PlayerPrefsLogic : MonoBehaviour
     public static string GO_Time_Min_Pref ="GO_Time_MIN";
     public static string GO_Time_Year_Pref ="GO_Time_Year";
     public static string GO_Time_DayOfYear_Pref = "GO_Time_DayOfYear";
+    public static string GO_Timeout_Time_Pref = "GO_Timeout_Time";
 
     public static string Player_Lives_Pref = "Player_Lives";
 
@@ -24,6 +25,7 @@ public class PlayerPrefsLogic : MonoBehaviour
     bool hasRA_Time_Prefs = false;
 
 
+    int startingLives = 3;
     int playerLives = 0;
 
     int gameOverTimeHour = 0;
@@ -31,8 +33,8 @@ public class PlayerPrefsLogic : MonoBehaviour
     int gameOverDayOfYear = 0; // out of 365/366
     int gameOverYear = 0;
 
-    int rewardedAdTimeHour;
-    int rewardedAdTimeMin;
+    int rewardedAdTimeHour = 0;
+    int rewardedAdTimeMin = 0;
     int rewardedAdDayOfYear = 0; // out of 365
     int rewardedAdYear = 0;
 
@@ -41,6 +43,16 @@ public class PlayerPrefsLogic : MonoBehaviour
 
 
     int gameOverTimeOut = 1; // in Hrs
+
+    string currentGO_Timeout_Time = "00:00 am";
+    int currentGO_Time_State = 0;
+    //Return Values
+    /*
+     * 0 - new player
+     * 1 - reward active
+     * 2 - has lives
+     * 3 - Game Over no lives
+     */
 
     // Start is called before the first frame update
     void Start()
@@ -58,13 +70,22 @@ public class PlayerPrefsLogic : MonoBehaviour
       
     }
 
+
+    //Return Values
+    /*
+     * 0 - new player
+     * 1 - reward active
+     * 2 - has lives
+     * 3 - Game Over no lives
+     */
     public void GetPlayerPrefs()
     {
         
         if (PlayerPrefs.HasKey("FirstTime"))
         {
             //get lives
-            playerLives = PlayerPrefs.GetInt(Player_Lives_Pref);
+            GetLives();
+
             if (playerLives <= 0)
             {
                 //not first time and no lives 
@@ -74,7 +95,10 @@ public class PlayerPrefsLogic : MonoBehaviour
 
                     if (CheckRewardActive())
                     {
-                        //Player can Play **************
+                        //Player can Play ************** 
+                        SetLives(startingLives);
+                        currentGO_Time_State = 1;
+                        return;
                     }
                 }
 
@@ -86,16 +110,47 @@ public class PlayerPrefsLogic : MonoBehaviour
                     
                     string hour = gameOverTimeHour.ToString();
                     string min = gameOverTimeMin.ToString();
+
+                    string prefix = "AM";
                     if (gameOverTimeMin < 10)
                     {
                         min = "0" + gameOverTimeMin.ToString();
 
                     }
-
+                    if (gameOverTimeHour > 12)
+                    {
+                        if (gameOverTimeHour % 12 == 0)
+                        {
+                            hour = "12";
+                        }
+                        else 
+                        {
+                            hour = (gameOverTimeHour - 12).ToString();
+                            prefix = "PM";
+                        }
+                    }
+                    currentGO_Timeout_Time = hour + ":" + min + " " + prefix;
+                    if (CheckGameOverCycle())
+                    {
+                        //Game over cycle ended
+                        currentGO_Time_State = 2;
+                        SetLives(startingLives);
+                        return;
+                    }
+                    else
+                    {
+                        currentGO_Time_State = 3;
+                        return;
+                    }
                 }
 
                 
                 
+            }
+            //has lives
+            else        
+            {
+                currentGO_Time_State = 2;
             }
             
             
@@ -104,16 +159,16 @@ public class PlayerPrefsLogic : MonoBehaviour
         }
         else 
         {
-            int startingLives = 3;
             PlayerPrefs.SetInt("FirstTime", 0);
             PlayerPrefs.SetInt(Player_Lives_Pref, startingLives);
             playerLives = startingLives;
 
+            currentGO_Time_State = 0;
 
         }
     }
 
-    bool CheckRewardActive()
+    public bool CheckRewardActive()
     {
         GetRewardAdTimePrefs();
         GetTimeNow();
@@ -123,11 +178,24 @@ public class PlayerPrefsLogic : MonoBehaviour
         if (rewardedAdYear == timeNow.Year)
         {
             //if same day
+
+            /*
+             * if hour is less than RA hour+1
+             *      can play add lives
+             * else if hour == RA time our+1
+             *      if min <= RA min
+             *          can play add lives
+             
+             */
             if (timeNow.DayOfYear == rewardedAdDayOfYear)
             {
                 //then is now hour == reward hour+1
-                if (timeNow.Hour == rewardedAdTimeHour + 1)
+                if (timeNow.Hour < rewardedAdTimeHour + 1)
                 {
+                    return true;
+                }
+                else if(timeNow.Hour == rewardedAdTimeHour +1)
+                { 
                     //if nowMin <= reward.min
                     if (timeNow.Minute <= rewardedAdTimeMin)
                     {
@@ -135,7 +203,6 @@ public class PlayerPrefsLogic : MonoBehaviour
                     }
                 }
             }
-
 
             //else if now.Day == reward day + 1    
             else if (timeNow.DayOfYear == rewardedAdDayOfYear + 1)
@@ -168,15 +235,48 @@ public class PlayerPrefsLogic : MonoBehaviour
 
         
     }
-    bool GetLives()
+    public int GetPlayerState()
+    {
+        return currentGO_Time_State;
+    }
+    //Return Values
+    /*
+     * 0 - new player
+     * 1 - reward active
+     * 2 - has lives
+     * 3 - Game Over no lives
+     */
+    public int GetLives()
     {
         if (PlayerPrefs.HasKey(Player_Lives_Pref))
         {
             playerLives = PlayerPrefs.GetInt(Player_Lives_Pref);
-            return true;
+            return playerLives;
         }
         else
-            return false;
+            return -1;
+    }
+    void SetLives(int newLives)
+    {
+        if (newLives > 0)
+        {
+            
+            playerLives = newLives;
+        }
+    }
+    public string GetGameOverTime()
+    {
+        if(PlayerPrefs.HasKey(GO_Timeout_Time_Pref))
+        {
+            currentGO_Timeout_Time = PlayerPrefs.GetString(GO_Timeout_Time_Pref);
+        }
+        
+        return currentGO_Timeout_Time;
+    }
+    void SetGO_Timeout_TimePref(string newTime)
+    {
+        PlayerPrefs.SetString(GO_Timeout_Time_Pref, currentGO_Timeout_Time);
+
     }
     //Get from PlayerPrefs
     //returns false is key does not exist
@@ -240,7 +340,7 @@ public class PlayerPrefsLogic : MonoBehaviour
 
     //Save to PlayerPrefs
     //Overwrite or create if does not exist.
-    void SetrewardedAdTimePrefs(int hr, int min, int year, int dayOfYear)
+    void SetRewardedAdTimePrefs(int hr, int min, int year, int dayOfYear)
     {
         PlayerPrefs.SetInt(RA_Time_Hr_Pref, hr); //hr
         PlayerPrefs.SetInt(RA_Time_Min_Pref, min); // min
@@ -259,11 +359,46 @@ public class PlayerPrefsLogic : MonoBehaviour
         SetTimeNow();
         return timeNow;
     }
-    void CheckGameOverCycle()
+    bool CheckGameOverCycle()
     {
         //Get time now
         GetTimeNow();
-        
+        GetGameOverTimePrefs();
+        //Check time to see if one day has elapsed since last game over.
+        //Is it the same year?
+        if (timeNow.Year == gameOverYear)
+        {
+            //If yes then is today >= game over day + 1
+            if (timeNow.DayOfYear >= gameOverDayOfYear + 1)
+            {
+                //If yes then if hour and min now >= hour and min of game over?
+                if (timeNow.Hour >= gameOverTimeHour && timeNow.Minute >= gameOverTimeMin)
+                {
+                    //can play give starting lives
+                    return true;
+
+                }
+            }
+        }
+
+        //Else if not but is next year
+        else if (timeNow.Year == gameOverYear + 1)
+        {
+            //if yes then it better be the first day of this year and last day of last year.      
+            if (timeNow.DayOfYear == 0 && (gameOverDayOfYear == 365 || gameOverDayOfYear == 366))
+            {
+                //if todays hour and min is >= game over hour and min
+                if (timeNow.Hour >= gameOverTimeHour && timeNow.Minute >= gameOverTimeMin)
+                {
+                    //can play give starting lives
+                    //can play
+                    return true;
+                }
+            }
+        }
+        //else it has not been enough time.
+        //
+        return false;
 
 
     }
@@ -272,7 +407,7 @@ public class PlayerPrefsLogic : MonoBehaviour
     {
         GetTimeNow();
 
-        SetrewardedAdTimePrefs(timeNow.Hour,timeNow.Minute,timeNow.Year,timeNow.DayOfYear);
+        SetRewardedAdTimePrefs(timeNow.Hour,timeNow.Minute,timeNow.Year,timeNow.DayOfYear);
 
     }
 
