@@ -17,6 +17,7 @@ public class GameLogic : MonoBehaviour
     public SpawnObjectHere trashCanSpawner;
 
     public AdManager adManager;
+    public PlayerPrefsLogic playerPrefsLogic;
 
     public Text destroyedText;
     public Text scoreText;
@@ -278,5 +279,12 @@ public class GameLogic : MonoBehaviour
 
         adManager.PlayAd();
         SceneManager.LoadScene(1);
+    }
+
+    private bool checkReward()
+    {
+        playerP
+
+        return false;
     }
 }
