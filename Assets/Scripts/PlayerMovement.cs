@@ -74,14 +74,16 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerActionControls.Player.TouchPress.started += ctx => StartTouch(ctx);
-        //playerActionControls.Player.TouchPress.started += ctx => EndTouch(ctx);
+        Start_SetRespawnPosition();
+    }
+
+    void Start_SetRespawnPosition()
+    {
 
         startPos = new Vector2(0, 0);
         startPos.x = transform.position.x;
         startPos.y = transform.position.y;
     }
-
     // Update is called once per frame
     void Update()
     {
