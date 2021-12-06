@@ -207,9 +207,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d02d5c82a22a6b45916d44ecb4cbcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLogic: {fileID: 261780440}
-  startScreenLogic: {fileID: 0}
-  debugText: {fileID: 0}
 --- !u!4 &29479259
 Transform:
   m_ObjectHideFlags: 0
@@ -860,7 +857,6 @@ MonoBehaviour:
   player: {fileID: 462418504}
   playerRig: {fileID: 462418509}
   trashCanSpawner: {fileID: 251885479}
-  playGameServices: {fileID: 29479258}
   adManager: {fileID: 261780447}
   playerPrefsLogic: {fileID: 261780448}
   playerLives: {fileID: 261780449}
@@ -1164,6 +1160,7 @@ MonoBehaviour:
   optionsBttn: {fileID: 2035995359}
   howToPageBttn: {fileID: 507623103}
   exitBttn: {fileID: 704823557}
+  exitPageBttn: {fileID: 1412436977}
   exitCancelBttn: {fileID: 1406179951}
 --- !u!114 &261780447
 MonoBehaviour:
@@ -2612,6 +2609,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1412436977 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8116488837311914028, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7224525694365940104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1537767657
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,7 +3066,7 @@ PrefabInstance:
     - target: {fileID: 185417220889566057, guid: 2a7a148284abbe24cad0d51f61d7f542,
         type: 3}
       propertyPath: jumpForce
-      value: 5.75
+      value: 6.25
       objectReference: {fileID: 0}
     - target: {fileID: 185417220889566057, guid: 2a7a148284abbe24cad0d51f61d7f542,
         type: 3}
