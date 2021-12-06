@@ -1,0 +1,11 @@
+lastUpgrade=01014
+proj.pluginVersion=0.10.14
+proj.AppId=735019603247
+and.BundleId=com.AlfredQuezada.SidewalkSession
+proj.classDir=Assets
+proj.ConstantsClassName=SmokeTest.GPGSIds
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--Google+Play+game+services+IDs.+Save+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.--%3e%0d%0a%3cresources%3e%0d%0a++%3c%21--app_id--%3e%0d%0a++%3cstring+name%3d%22app_id%22+translatable%3d%22false%22%3e735019603247%3c%2fstring%3e%0d%0a++%3c%21--package_name--%3e%0d%0a++%3cstring+name%3d%22package_name%22+translatable%3d%22false%22%3ecom.AlfredQuezada.SidewalkSession%3c%2fstring%3e%0d%0a++%3c%21--achievement+Welcome--%3e%0d%0a++%3cstring+name%3d%22achievement_welcome%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQAw%3c%2fstring%3e%0d%0a++%3c%21--achievement+AchievementToReveal--%3e%0d%0a++%3cstring+name%3d%22achievement_achievementtoreveal%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQBA%3c%2fstring%3e%0d%0a++%3c%21--achievement+AchievementToUnlock--%3e%0d%0a++%3cstring+name%3d%22achievement_achievementtounlock%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQBQ%3c%2fstring%3e%0d%0a++%3c%21--achievement+AchievementToIncrement--%3e%0d%0a++%3cstring+name%3d%22achievement_achievementtoincrement%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQBg%3c%2fstring%3e%0d%0a++%3c%21--achievement+AchievementHiddenIncremental--%3e%0d%0a++%3cstring+name%3d%22achievement_achievementhiddenincremental%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQBw%3c%2fstring%3e%0d%0a++%3c%21--event+SmokingEvent--%3e%0d%0a++%3cstring+name%3d%22event_smokingevent%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQCQ%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+Top+High+Scores--%3e%0d%0a++%3cstring+name%3d%22leaderboard_top_high_scores%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQAQ%3c%2fstring%3e%0d%0a++%3c%21--leaderboard+Leaders--%3e%0d%0a++%3cstring+name%3d%22leaderboard_leaders%22+translatable%3d%22false%22%3eCgkIr6rUlLIVEAIQCA%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=735019603247-das08pfipfs6tbg69jugtviqlknkefrt.apps.googleusercontent.com
+android.SetupDone=true
+App.NearbdServiceId=com.AlfredQuezada.SidewalkSession
+android.NearbySetupDone=true

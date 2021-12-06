@@ -16,7 +16,7 @@ public class LoadingScript : MonoBehaviour
 
     IEnumerator LoadAsyncOperation()
     {
-        AsyncOperation level = SceneManager.LoadSceneAsync(2);
+        AsyncOperation level = SceneManager.LoadSceneAsync(3);
 
         while (level.progress < 1)
         {
