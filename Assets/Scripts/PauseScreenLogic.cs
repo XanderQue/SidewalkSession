@@ -24,6 +24,7 @@ public class PauseScreenLogic : MonoBehaviour
 
     //Exit Option buttons
     public Button exitBttn;
+    public Button exitPageBttn;
     public Button exitCancelBttn;
 
 
@@ -37,6 +38,7 @@ public class PauseScreenLogic : MonoBehaviour
 
         //Add listeners for exit menu
         exitBttn.onClick.AddListener(ExitGame);
+        exitPageBttn.onClick.AddListener(GoToExitMenu);
         exitCancelBttn.onClick.AddListener(CancelExit);
     }
 
