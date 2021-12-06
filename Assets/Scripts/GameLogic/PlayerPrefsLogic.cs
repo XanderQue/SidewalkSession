@@ -297,11 +297,20 @@ public class PlayerPrefsLogic : MonoBehaviour
                     }
                     else
                     {
+                        Debug.Log("Game over cycle has not elapsed");
                         if (startScreenLogic != null)
                             startScreenLogic.SetContinueBttnWatchAd();
                         currentGO_Time_State = 3;
                         return;
                     }
+                }
+                else
+                {
+                    Debug.Log("No game over prefs Lives = " +  playerLivesLogic.GetLives());
+                    startScreenLogic.SetContinueBttnWatchAd();
+
+                    if(playerLivesLogic.GetLives() < 0)
+                        playerLivesLogic.SetLives(0);
                 }
 
 
@@ -631,8 +640,16 @@ public class PlayerPrefsLogic : MonoBehaviour
         GetTimeNow();
 
         SetRewardedAdTimePrefs(timeNow.Hour,timeNow.Minute,timeNow.Year,timeNow.DayOfYear);
+        if (gameLogic != null)
+        { 
+            gameLogic.RestartGame(); 
+        }
 
-        gameLogic.RestartGame();
+        if (startScreenLogic != null)
+        {
+            startScreenLogic.SetRewardBttnNoOpt();
+        }
+        
 
     }
 
