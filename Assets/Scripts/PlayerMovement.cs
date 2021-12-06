@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,6 +21,18 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     private bool grounded;
+    [SerializeField]
+    private bool canLand = true;
+    private bool canLockIn = false;
+    private int shuvCount = 0;//180 shuv
+    private int trickPoints = 0;
+    public int baseTrickPoints = 0;
+
+    public Text trickText;
+    public Color needToLockColor;
+    public Color lockSuccessColor;
+
+
 
 
     public float jumpForce = 7.75f;
@@ -50,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
     public GameObject skateboard;
     public GameObject spawnedBoard;
 
+    public GameObject ollieButton;
+    public GameObject frontShuvButton;
+
     //DEBUG ONLY//
     float jumpTime = 0.0f;
     float landTime = 0.0f;
@@ -75,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Start_SetRespawnPosition();
+        playerActionControls = new PlayerActionControls();
     }
 
     void Start_SetRespawnPosition()
@@ -95,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
     {
         velocity = rigBody.velocity.y;
         anim.SetFloat("Y Velocity", velocity);
-        if (!grounded && rigBody.velocity.y < 0.0f)
+        if (!grounded && rigBody.velocity.y < 0.0f )
         {
 
            
@@ -119,33 +136,55 @@ public class PlayerMovement : MonoBehaviour
 
     public void landFunction()
     {
-        if (Time.timeScale != GameLogic.timeScaleStatic)
-        {
-
-            Time.timeScale = GameLogic.timeScaleStatic;
-        }
-
         rigBody.velocity.Set(0.0f, 0.0f);
         grounded = true;
         PlayLandAudio();
+
+        trickPoints = Mathf.RoundToInt(baseTrickPoints *(1+(shuvCount*.5f)));
+
+        gameLogic.score += trickPoints;
+
+        gameLogic.ScorePopUpTextSet(true, Mathf.RoundToInt(trickPoints).ToString());
+
+        gameLogic.UpdateScore();
+
+        trickPoints = 0;
+        shuvCount = 0;
+        baseTrickPoints = 0;
     }
     public void TriggerJump()
     {
         if (!GameLogic.paused)
         {
-            if (grounded && alive)
+            if (!canLand && alive && canLockIn)
             {
-
+                Debug.Log("Lock it in!");
+                LockInTrick();
+            }
+            else if (grounded && alive)
+            {
+                Debug.Log("Jump fool");
                 grounded = false;
                 if ((gameLogic.GetNumJumps() + 1) % 5 == 0)
                 {
                     //front shuv - extra points and fan fare
                     anim.SetBool("FrontShuv", true);
-                    //Time.timeScale = 0.775f;
+                    frontShuvButton.SetActive(true);
+                    ollieButton.SetActive(false);
+                }
+                else if ((gameLogic.GetNumJumps() + 2) % 5 == 0)
+                {
+                    anim.SetBool("Ollie", true);
+                    //front shuv - extra points and fan fare
+                    frontShuvButton.SetActive(true);
+                    ollieButton.SetActive(false);
                 }
                 else
                 {
                     anim.SetBool("Ollie", true);
+
+                    frontShuvButton.SetActive(false);
+                    ollieButton.SetActive(true);
                 }
 
             }
@@ -188,7 +227,7 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //rigBody.AddForce(new Vector2(direction * pushSpeed * Time.deltaTime, 0.0f), ForceMode2D.Impulse);
                     FootDown();
-                    if (GameLogic.global_SpeedMultiplyer > 1.0f + (gameLogic.score * 0.005f))
+                    if (GameLogic.global_SpeedMultiplyer > 1.0f)
                         gameLogic.speedMult -= 0.1f;
 
                     anim.Play("slow");
@@ -237,8 +276,9 @@ public class PlayerMovement : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //if hazad then Fall
-
-        if (collision.tag == "hazard")
+        Debug.Log("Trigger Enter : " + collision.tag);
+        Debug.Log("Trigger Enter - can Land? " + canLand +" : anim ? "+ anim.GetBool("CanLand"));
+        if (collision.tag == "hazard" || !canLand)
         {
             alive = false;
 
@@ -247,7 +287,7 @@ public class PlayerMovement : MonoBehaviour
             Fall();
 
         }
-        if (collision.tag == "ground")
+        if (collision.tag == "ground" )
         {
             grounded = true;
         }
@@ -261,12 +301,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (spawnedBoard == null)
             spawnedBoard = Instantiate(skateboard);
+        rigBody.constraints = RigidbodyConstraints2D.FreezeRotation;
         anim.Play("FallFoward");
         PlayPopAudio();
         //Change Player game object tag so that it ignores collisions with objects but still collides with ground.
         gameObject.layer = onlyGroundLayer;
         fell = true;
         StartCoroutine(WaitToCheckGround());
+        frontShuvButton.SetActive(false);
+        ollieButton.SetActive(true);
 
     }
     IEnumerator WaitToCheckGround()
@@ -278,18 +321,21 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Respawn()
     {
-        canSpawn = false;
 
         grounded = false;
-
+        LockInTrick();
+        CantLockIn();
         anim.SetBool("Grounded", grounded);
+        anim.SetBool("FrontShuv", false);
         alive = true;
         fell = false;
         gameObject.layer = LayerMask.NameToLayer("OnlyGround");
         Quaternion rot = transform.rotation;
         transform.SetPositionAndRotation(startPos, rot);
         rigBody.WakeUp();
+        rigBody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         anim.Play("Ride");
+
         StartCoroutine(WaitFlash(flashTime));
     }
 
@@ -325,6 +371,59 @@ public class PlayerMovement : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
+    }
+
+    void StartTrickJump()
+    {
+        shuvCount = 0;
+        canLand = false;
+        CantLockIn();
+        anim.SetBool("CanLand", false);
+        Debug.Log("You need to lock it in!");
+    }
+    public void LockInTrick()
+    {
+        canLand = true;
+        anim.SetBool("CanLand",true);
+        anim.SetBool("FrontShuv",false);
+        anim.Play("HangAir");
+        if(gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            trickText.color = lockSuccessColor;
+            trickText.text = "NICE "+(shuvCount*180)+" Front Shuv!\nx"+(1+(shuvCount*0.5f))+" points!";
+            StartCoroutine(FadeText(3));
+        }
+    }
+    IEnumerator FadeText(int fadeDurationSec)
+    {
+        for (float t = 0f; t < fadeDurationSec; t += Time.deltaTime)
+        {
+            float normalizedTime = t / fadeDurationSec;
+            //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
+            trickText.color = new Color(trickText.color.r, trickText.color.g, trickText.color.b, Mathf.Lerp(1, 0, normalizedTime));
+            yield return null;
+        }
+
+        trickText.color = new Color(trickText.color.r, trickText.color.g, trickText.color.b, 0);
+    }
+    void CanLockIn()
+    {
+        canLockIn = true;
+        //LOCK IT IN!
+        trickText.color = needToLockColor;
+        trickText.text = "LOCK IT IN!";
+    }
+    void CantLockIn()
+    {
+        
+        canLockIn = false;
+        //set text to blank
+        trickText.text = "";
+    }
+    void AddFrontShuv()
+    {
+        shuvCount++;
+        //Debug.Log((shuvCount*180)+ " Front Shuv!");
     }
 
 }

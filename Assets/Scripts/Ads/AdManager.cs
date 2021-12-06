@@ -47,7 +47,6 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsReady(string placementId)
     {
-        Debug.Log("Ad Ready :)");
     }
 
     public void OnUnityAdsDidError(string message)
@@ -57,7 +56,6 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidStart(string placementId)
     {
-        Debug.Log("Ad started");
     }
 
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
@@ -77,7 +75,7 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
             {
                 playerPrefsLogic.PlayedRewardedAdJustNow();
             }
-            if (placementId == "Interstitial_Android" && showResult == ShowResult.Finished)
+            if (placementId == "Interstitial_Android")
             {
                 playerLivesLogic.SetMaxLives();
                 gameLogic.RestartGame();
@@ -93,9 +91,11 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
             {
                 playerPrefsLogic.PlayedRewardedAdJustNow();
                 playerLivesLogic.SetMaxLives();
+                startScreenLogic.SetRewardBttnNoOpt();
+                //set max lives and start game
                 startScreenLogic.StartGame();
             }
-            if (placementId == "Interstitial_Android" && showResult == ShowResult.Finished)
+            if (placementId == "Interstitial_Android")
             {
                 playerLivesLogic.SetMaxLives();
                 startScreenLogic.StartGame();

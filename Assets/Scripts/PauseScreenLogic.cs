@@ -8,7 +8,7 @@ public class PauseScreenLogic : MonoBehaviour
 {
 
     public GameLogic gameLogic;
-
+    public HowToPlayPageLogic howToPlayPageLogic;
     public AdManager adManager;
 
     //public Canvas gameCanvas;
@@ -20,10 +20,9 @@ public class PauseScreenLogic : MonoBehaviour
     //Pause buttons
     public Button unPauseBttn;
     public Button optionsBttn;
-    public Button exitMenuBttn;
+    public Button howToPageBttn;
 
     //Exit Option buttons
-    public Button toMainBttn;
     public Button exitBttn;
     public Button exitCancelBttn;
 
@@ -34,19 +33,13 @@ public class PauseScreenLogic : MonoBehaviour
         //Add listeners for pause screen
         unPauseBttn.onClick.AddListener(Unpause);
         optionsBttn.onClick.AddListener(GoToOptionsMenu);
-        exitMenuBttn.onClick.AddListener(GoToExitMenu);
+        howToPageBttn.onClick.AddListener(OpenHowToPage);
 
         //Add listeners for exit menu
-        toMainBttn.onClick.AddListener(LoadMainMenu);
         exitBttn.onClick.AddListener(ExitGame);
         exitCancelBttn.onClick.AddListener(CancelExit);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void Unpause()
     {
@@ -65,18 +58,20 @@ public class PauseScreenLogic : MonoBehaviour
         exitCanvas.enabled = true;
     }
 
-    public void LoadMainMenu()
-    {
-        SceneManager.LoadScene(1);
-    }
 
     public void ExitGame()
     {
+        Time.timeScale = 1.0f;
         Application.Quit();
     }
     public void CancelExit()
     {
         exitCanvas.enabled = false;
         pauseCanvas.enabled = true;
+    }
+
+    void OpenHowToPage()
+    {
+        howToPlayPageLogic.OpenHowToCanvas(pauseCanvas);
     }
 }

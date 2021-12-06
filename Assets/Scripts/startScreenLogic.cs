@@ -12,6 +12,7 @@ public class StartScreenLogic : MonoBehaviour
     public AdManager adManager;
     public PlayerPrefsLogic playerPrefsLogic;
     public PlayerLives playerLives;
+    public HowToPlayPageLogic howToPlayPageLogic;
 
     //main menu buttons
     public GameObject startButton_GameObject;
@@ -23,6 +24,7 @@ public class StartScreenLogic : MonoBehaviour
     public Button startWithAdBttn;
     public Button rewardedAdBttn;
     public Button optionsBttn;
+    public Button howToPlayPageBttn;
     public Button quitBttn;
 
     public Text playerLivesStart;
@@ -36,16 +38,16 @@ public class StartScreenLogic : MonoBehaviour
     {
         //do not include parenthesis in add listener when specifying 
         //function to call
-
         startBttn.onClick.AddListener(() => ContinueWithAdBttn(false));
         startWithAdBttn.onClick.AddListener(()=> ContinueWithAdBttn(true));
         rewardedAdBttn.onClick.AddListener(() => RewardAdBttn(true));
 
         optionsBttn.onClick.AddListener(OpenOptions);
+        howToPlayPageBttn.onClick.AddListener(OpenHowToPage);
         quitBttn.onClick.AddListener(QuiteGame);
 
         playerPrefsLogic.CheckLivesPlayerPrefs();
-
+        
         SetLivesText();
 
        
@@ -64,7 +66,7 @@ public class StartScreenLogic : MonoBehaviour
     public void StartGame()
     {
         //canvas.enabled = false;
-        SceneManager.LoadScene(3);//3 is loading scene 10/24/2021
+        SceneManager.LoadScene(2);//3 is loading scene 10/24/2021
         mainMenuCanvas.enabled = false;
     }
 
@@ -140,4 +142,8 @@ public class StartScreenLogic : MonoBehaviour
         //set a text saying when it will expire******************************************     TO DO
     }
 
+    void OpenHowToPage()
+    {
+        howToPlayPageLogic.OpenHowToCanvas(mainMenuCanvas);
+    }
 }

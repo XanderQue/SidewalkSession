@@ -14,6 +14,7 @@ public class GameLogic : MonoBehaviour
     public GameObject player;
     public Rigidbody2D playerRig;
     public SpawnObjectHere trashCanSpawner;
+    //public PlayGameServices playGameServices;
 
     public AdManager adManager;
     public PlayerPrefsLogic playerPrefsLogic;
@@ -41,6 +42,8 @@ public class GameLogic : MonoBehaviour
 
     public Canvas gameCanvas;
     public Canvas pauseCanvas;
+    public Canvas howToPlayCanvas;
+    public Toggle showHowToOnStart;
 
     public Canvas continueCanvas;
 
@@ -68,16 +71,32 @@ public class GameLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (playerPrefsLogic.ShowHowToPlayOnStart())
+        {
+            ShowHowTo();
+        }
+        else
+        {
+            StartGame();
+        }
+
+
+
+
+
+
+
+
+    }
+    void StartGame()
+    {
+        Debug.Log("Should not show up yet");
         SetLivesText(playerLives.GetLives());
         Start_HighScore();
         Start_TimeScale(); // Set time to zero check lives
         Start_ButtonListeners();//Check if can play before starting time.
         Start_PlayerPhysics();
         playerPrefsLogic.CheckLivesPlayerPrefs();
-        
-       
-
-
         //What does this do?
         playedAudio = false;
         if (paused)
@@ -88,10 +107,28 @@ public class GameLogic : MonoBehaviour
 
 
         Start_AudioVolume();
-        
-
 
     }
+    public void ShowHowTo()
+    {
+        if (playerPrefsLogic.ShowHowToPlayOnStart())
+        {
+            Time.timeScale = 0.0f;
+            //freeze time show how to canvas.
+            howToPlayCanvas.enabled = true;
+            
+        }
+    }
+    public void HideHowTo()
+    {
+        //hide how to canvas
+        //unfreeze
+        playerPrefsLogic.SetShowHowToPlayPref(showHowToOnStart.isOn);
+        howToPlayCanvas.enabled = false;
+        Time.timeScale = 1.0f;
+        StartGame();
+    }
+
     void Start_HighScore()
     {
         highscore = playerPrefsLogic.GetHighschorePref();
@@ -118,8 +155,8 @@ public class GameLogic : MonoBehaviour
         continueBttn.onClick.AddListener(() => ContinueWithAdBttn(false));
         watchAdGameOverBttn.onClick.AddListener(() => ContinueWithAdBttn(true));
         watchRewardBttn.onClick.AddListener(() => RewardAdBttn(true));
-
-        quitBttn.onClick.AddListener(ExitToMain);
+        
+        quitBttn.onClick.AddListener(ExitGame);
     }
     void Start_PlayerPhysics()
     {
@@ -171,14 +208,20 @@ public class GameLogic : MonoBehaviour
     {
         if (!playedAudio)
         {
+
             highscore = playerPrefsLogic.GetHighschorePref();
+            
+
+
             if ( highscore < score)
             {
                 playerPrefsLogic.SetHighscorePref(score);
                 highscore = score;
                 highscoreText.text = highscore.ToString();
                 ScorePopUpTextSet(true, "NEW HIGH SCORE!");
-            } 
+            }
+
+            //playGameServices.AddScoreToLeaderboard(highscore);
          
             playedAudio = true;
 
@@ -260,8 +303,9 @@ public class GameLogic : MonoBehaviour
             alive = true;
             
             UpdateScore();
-
             playerMovementScript.Respawn();
+            Time.timeScale = 1.0f;
+
         }
         
     }
@@ -278,7 +322,7 @@ public class GameLogic : MonoBehaviour
 
         if (alive)
         {
-
+            SetLivesText(playerLives.GetLives());
             if (!paused) // pause
             {
                 Time.timeScale = 0.0f;
@@ -355,10 +399,14 @@ public class GameLogic : MonoBehaviour
     {
 
 
-        adManager.PlayAd();
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(1);
     }
-
+    public void ExitGame()
+    {
+        Time.timeScale = 1.0f;
+        Application.Quit();
+    }
     public void ContinueWithAdBttn(bool watchAd)
     {
         if (watchAd)

@@ -7,11 +7,10 @@ using UnityEngine.SceneManagement;
 public class SkipSplash : MonoBehaviour
 {
 
-    public Button skipBttn;
     // Start is called before the first frame update
     void Start()
     {
-        skipBttn.onClick.AddListener(SkipSplashScreen);
+        
     }
 
     // Update is called once per frame
@@ -20,7 +19,7 @@ public class SkipSplash : MonoBehaviour
         
     }
 
-    void SkipSplashScreen()
+    public void SkipSplashScreen()
     {
         SceneManager.LoadScene(1);
     }

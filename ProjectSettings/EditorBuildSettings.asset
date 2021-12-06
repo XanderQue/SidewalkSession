@@ -12,11 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: 29ae2b5c22c5c724b89ed2fe72308d03
   - enabled: 1
-    path: Assets/Scenes/GameLoop.unity
-    guid: b2f13546d07652348b1dca54ca7c486e
-  - enabled: 1
     path: Assets/Scenes/LoadingScene.unity
     guid: 1ecf2e305ae109447a2e991f06365462
+  - enabled: 1
+    path: Assets/Scenes/GameLoop.unity
+    guid: b2f13546d07652348b1dca54ca7c486e
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: bb7ffbe9aa227824ab01ecd1b922afb3,
       type: 2}

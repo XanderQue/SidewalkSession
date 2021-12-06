@@ -43,11 +43,9 @@ public class PlayerLives : MonoBehaviour
 
     public int LooseLives(int numLivesLost)
     {
-        Debug.Log("Loose " + numLivesLost + " Lives");
         GetLives();
         playerLives -= numLivesLost;
         playerPrefsLogic.SetLivesPref(playerLives);
-        Debug.Log("LooseLives.Lives  = " + playerLives);
         if (gameLogic != null)
             gameLogic.SetLivesText(playerLives);
         return playerLives;

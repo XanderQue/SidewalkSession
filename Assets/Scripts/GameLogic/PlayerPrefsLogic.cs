@@ -19,6 +19,7 @@ public class PlayerPrefsLogic : MonoBehaviour
     public static string Player_HighScore_Pref = "player_highscore";
 
     public static string Player_Lives_Pref = "Player_Lives";
+    public static string Player_HowToPlay_Pref = "Player_HowToPlay";
 
     public static string RA_Time_Hr_Pref = "RA_Time_Hr";
     public static string RA_Time_Min_Pref = "RA_Time_MIN";
@@ -34,7 +35,7 @@ public class PlayerPrefsLogic : MonoBehaviour
 
     int startingLives = 3;
     int playerLives = 0;
-
+    bool showHowToPlay = true;
     int gameOverTimeHour = 0;
     int gameOverTimeMin = 0;
     int gameOverDayOfYear = 0; // out of 365/366
@@ -80,43 +81,42 @@ public class PlayerPrefsLogic : MonoBehaviour
     private void FixedUpdate()
     {
 
+        if (!CheckRewardActive())
+        {
+            if (startScreenLogic != null)
+                startScreenLogic.SetRewardBttnWatchAd();
+            else if (gameLogic != null)
+                gameLogic.SetRewardBttnWatchAd();
+        }
         if (CheckRewardActive() && startScreenLogic != null)
         {
             GetTimeNow();
-            Debug.Log("Has reward start screen not null");
             //fixed update time
             int minLeft = 0;
             if (timeNow.Hour == rewardedAdTimeHour)
             {
-                Debug.Log("Time hr == RA hour");
 
                 minLeft = 60 - (timeNow.Minute - rewardedAdTimeMin);
             }
             else if (timeNow.Hour == rewardedAdTimeHour + 1 || rewardedAdTimeHour == 23)
             {
-                Debug.Log("Time hr == RA hour +1");
                 minLeft = rewardedAdTimeMin - timeNow.Minute;
-                Debug.Log("Min Left == " + minLeft);
             }
             startScreenLogic.rewardTimeText.text = minLeft.ToString() + startScreenLogic.rewardTimeString;
         }
         else if (CheckRewardActive() && gameLogic != null)
         {
             GetTimeNow();
-            Debug.Log("Has reward game logic not null");
             //fixed update time
             int minLeft = 0;
             if (timeNow.Hour == rewardedAdTimeHour)
             {
-                Debug.Log("Time hr == RA hour");
 
                 minLeft = 60 - (timeNow.Minute - rewardedAdTimeMin);
             }
             else if (timeNow.Hour == rewardedAdTimeHour + 1 || rewardedAdTimeHour == 23)
             {
-                Debug.Log("Time hr == RA hour +1");
                 minLeft = rewardedAdTimeMin - timeNow.Minute;
-                Debug.Log("Min Left == " + minLeft);
             }
             gameLogic.rewardActiveText.text = minLeft.ToString() + gameLogic.rewaredTimerString;
         }
@@ -134,29 +134,24 @@ public class PlayerPrefsLogic : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("FirstTime"))
         {
-            Debug.Log("This aint your FirstTime in gameOverPlayerPrefs()");
             //get lives
             playerLives = playerLivesLogic.GetLives();
 
             if (playerLives <= 0)
             {
 
-                Debug.Log("PlayerPrefsLogic.gameOverPlayerPrefs() Player lives <= O");
                 //not first time and no lives 
                 //Do you have coins?
                 if ((hasRA_Time_Prefs = GetRewardAdTimePrefs()))//if reward ad time
                 {
-                    Debug.Log("has RA Time Prefs");
                     if (CheckRewardActive())
                     {
-                        Debug.Log("Reward active");
                         //Player can Play ************** 
                         playerLives = playerLivesLogic.SetLives(startingLives);
                         currentGO_Time_State = 1;
 
                         if (gameLogic != null)
                         {
-                            Debug.Log("Game Logic");
                             gameLogic.SetContinueBttnNoAd();
                             gameLogic.SetRewardBttnNoOpt();
                         }
@@ -165,27 +160,22 @@ public class PlayerPrefsLogic : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Reward not active");
                         if (gameLogic != null)
                         {
-                            Debug.Log("Game Logic");
                             gameLogic.SetRewardBttnWatchAd();
                         }
                     }
                 }
                 else 
                 {
-                    Debug.Log("Reward not active");
                     if (gameLogic != null)
                     {
-                        Debug.Log("Game Logic");
                         gameLogic.SetRewardBttnWatchAd();
                     }
                 }
 
                 if (hasGO_Time_Prefs = GetGameOverTimePrefs())
                 {
-                    Debug.Log("Has GO Time Prefs");
                     //if game over time then.
                     //Cant play until game over time +24hrs
 
@@ -198,7 +188,6 @@ public class PlayerPrefsLogic : MonoBehaviour
                         playerLives = playerLivesLogic.SetLives(startingLives);
                         if (gameLogic != null)
                         {
-                            Debug.Log("Game Logic- set continue no ad");
                         gameLogic.SetContinueBttnNoAd();
                     }
 
@@ -208,7 +197,6 @@ public class PlayerPrefsLogic : MonoBehaviour
                     {
                         if (gameLogic != null)
                         {
-                            Debug.Log("Game Logic- set continue with ad");
                            gameLogic.SetContinueBttnWatchAd();
                         }
                         currentGO_Time_State = 3;
@@ -217,7 +205,6 @@ public class PlayerPrefsLogic : MonoBehaviour
                 }
                 if (gameLogic != null)
                 {
-                    Debug.Log("Game Logic- set continue with ad");
                     gameLogic.SetContinueBttnWatchAd();
                 }
                 currentGO_Time_State = 3;
@@ -230,19 +217,16 @@ public class PlayerPrefsLogic : MonoBehaviour
             //has lives
             else
             {
-                Debug.Log("Has Lives!");
                 currentGO_Time_State = 2;
                 if (gameLogic != null)
                 {
                     gameLogic.SetContinueBttnNoAd();
                     if (CheckRewardActive())
                     {
-                        Debug.Log("Reward Active");
                         gameLogic.SetRewardBttnNoOpt();
                     }
                     else
                     {
-                        Debug.Log("Reward not Active");
                         gameLogic.SetRewardBttnWatchAd();
                     }
                 }
@@ -265,21 +249,18 @@ public class PlayerPrefsLogic : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("FirstTime"))
         {
-            Debug.Log("Not my first rodeo in Start Screen Player Prefs");
             //get lives
             playerLives = playerLivesLogic.GetLives();
 
             if (playerLives <= 0)
             {
-                Debug.Log("Player lives less than zero");
                 //not first time and no lives 
                 //Do you have coins?
                 if ((hasRA_Time_Prefs = GetRewardAdTimePrefs()))//if reward ad time
                 {
-                    Debug.Log("Has RA time");
                     if (CheckRewardActive())
                     {
-                        //Player can Play ************** 
+                        //Player can Play 
                         playerLives = playerLivesLogic.SetLives(startingLives);
                         currentGO_Time_State = 1;
 
@@ -293,24 +274,19 @@ public class PlayerPrefsLogic : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("No RA Time");
                         if (startScreenLogic != null)
                             startScreenLogic.SetRewardBttnWatchAd();
                     }
-                    Debug.Log("End of Has RA time");
                 }
 
                 if (hasGO_Time_Prefs = GetGameOverTimePrefs())
                 {
-                    Debug.Log("Has GO Time");
                     //if game over time then.
                     //Cant play until game over time +24hrs
-
                     SetGameOverTimeText();
 
                     if (CheckGameOverCycle())
                     {
-                        Debug.Log("Game over cycle ended");
                         //Game over cycle ended
                         currentGO_Time_State = 2;
                         playerLives = playerLivesLogic.SetLives(startingLives);
@@ -321,7 +297,6 @@ public class PlayerPrefsLogic : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("Still have to wait till " + GetGameOverTime());
                         if (startScreenLogic != null)
                             startScreenLogic.SetContinueBttnWatchAd();
                         currentGO_Time_State = 3;
@@ -336,20 +311,16 @@ public class PlayerPrefsLogic : MonoBehaviour
             //has lives
             else
             {
-                Debug.Log("Has lives");
                 currentGO_Time_State = 2;
                 if (startScreenLogic != null)
                 {
-                    Debug.Log("Start Screen Logic");
                     startScreenLogic.SetContinueBttnNoAd();
                     if (CheckRewardActive())
                     {
-                        Debug.Log("Has reward");
                         startScreenLogic.SetRewardBttnNoOpt();
                     }
                     else
                     {
-                        Debug.Log("No reward");
                         startScreenLogic.SetRewardBttnWatchAd();
                     }
                 }
@@ -386,13 +357,11 @@ public class PlayerPrefsLogic : MonoBehaviour
     {
         if (gameLogic != null)
         {
-            Debug.Log("CheckLives Player Prefs - GameLogic");
             gameOverPlayerPrefs();
 
         }
         else if (startScreenLogic != null)
         {
-            Debug.Log("CheckLives Player Prefs - StartScreenLogic");
             startScreenPlayerPrefs();
         }
         
@@ -511,7 +480,6 @@ public class PlayerPrefsLogic : MonoBehaviour
     }
     public void SetLivesPref(int newLives)
     {
-        Debug.Log("PlayerPrefsLogic.SetLivesPref( "+newLives+" )");
             
         playerLives = newLives;
         PlayerPrefs.SetInt(Player_Lives_Pref, playerLives);
@@ -693,4 +661,36 @@ public class PlayerPrefsLogic : MonoBehaviour
         PlayerPrefs.Save();
     }
 
+    public bool ShowHowToPlayOnStart()
+    {
+        if (PlayerPrefs.HasKey(Player_HowToPlay_Pref))
+        {
+            if (PlayerPrefs.GetInt(Player_HowToPlay_Pref) == 0)
+            {
+                showHowToPlay = false;
+            }
+            else
+            {
+                showHowToPlay = true;
+            }
+            return showHowToPlay;
+        }
+        else {
+            PlayerPrefs.SetInt(Player_HowToPlay_Pref, 1);
+            PlayerPrefs.Save();
+        }
+        return true;
+    }
+    public void SetShowHowToPlayPref(bool showHowTo)
+    {
+        if (showHowTo)
+        {
+            PlayerPrefs.SetInt(Player_HowToPlay_Pref, 1);
+        }
+        else 
+        { 
+            PlayerPrefs.SetInt(Player_HowToPlay_Pref, 0);
+        }
+        PlayerPrefs.Save();
+    }
 }
