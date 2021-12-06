@@ -390,9 +390,19 @@ public class PlayerMovement : MonoBehaviour
         if(gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             trickText.color = lockSuccessColor;
-            trickText.text = "NICE "+(shuvCount*180)+" Front Shuv!\nx"+(1+(shuvCount*0.5f))+" points!";
+            if (shuvCount > 0)
+            {
+                trickText.text = "NICE " + (shuvCount * 180) + " Front Shuv!\nx" + (1 + (shuvCount * 0.5f)) + " points!";
+            }
+            else if (shuvCount == 0)
+            {
+                trickText.text = "Too Soon!\nLet the board rotate.";
+            }
+            
             StartCoroutine(FadeText(3));
         }
+        frontShuvButton.SetActive(false);
+        ollieButton.SetActive(true);
     }
     IEnumerator FadeText(int fadeDurationSec)
     {
