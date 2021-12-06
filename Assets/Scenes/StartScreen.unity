@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -870,10 +870,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 162089495307135178, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
+        type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1943029460328460587, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354843458631282444, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4480831977153511283, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
         type: 3}
@@ -989,6 +999,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StartScreenCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857267054131251170, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ca100cf1aa235e428bfb27770bfe1e6, type: 3}
