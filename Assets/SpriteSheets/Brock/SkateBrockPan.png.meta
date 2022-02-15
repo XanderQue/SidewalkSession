@@ -125,6 +125,8 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -156,9 +158,12 @@ TextureImporter:
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
+  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -960,6 +965,41 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      SkateBrockPan_1: -7395476115888749350
+      SkateBrockPan_5: -4280455387934332309
+      SkateBrockPan_4: -5890742819517773796
+      spiningwheel1: -4300664010554434857
+      Brock_FrontShut_6: -8968994515097311781
+      SkateBrock Fall 7: 775907921030215263
+      SkateBrock Fall 5: -3642399289986985261
+      spinningwheel2: 6703826419135762615
+      Brock_FrontShut_5: 2251734163206467363
+      skateboardwheel: -4276803807578391156
+      SkateBrock Fall 8: -493415010893994032
+      SkateBrock Fall 2: 8138306406570720339
+      Brock push 2: 1170499193887864757
+      Brock_FrontShut_3: -1322263770096958483
+      SkateBrock Fall 3: 3605367541015980062
+      Skateboard: -8907434957571763289
+      Brock_FrontShut_2: -5891551313498634893
+      SkateBrockPan_0: 5021790614282157456
+      Skateboar back wheels: -4143520564935680474
+      SkateBrock Fall 4: 2085465128017834033
+      SkateBrock Fall 6: -4266108411765526225
+      SkateBrockPan_28: -7302021008385744071
+      Skateboar front wheels: 6533311992459088228
+      SkateBrockPan_7: -7903325848274098690
+      Brock_FrontShut_1: -2853490572300573152
+      Brock push 1: 6396716469337093958
+      Brock_FrontShut_4: -8938577812677846374
+      SkateBrockPan_6: 4164575827696347439
+      SkateBrockPan_3: -7443203390152657718
+      SkateBrockPan_17: -3445566871737754584
+      SkateBrockPan_8: 2303761860150065639
+      SkateBrockPan_2: 5658117981961865058
+      SkateBrock Fall 1: 5200246507063648625
+      Brock push 3: 3300047261810775209
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
