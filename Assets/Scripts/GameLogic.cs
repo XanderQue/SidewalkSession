@@ -67,6 +67,8 @@ public class GameLogic : MonoBehaviour
 
     public static float timeScaleStatic = 1.0f;
 
+    public PGS_Manager playGamesServicesManager;
+
 
     // Start is called before the first frame update
     void Start()
@@ -103,7 +105,6 @@ public class GameLogic : MonoBehaviour
         {
             PauseGame();
         }
-        // end : What does this do?
 
 
         Start_AudioVolume();
@@ -219,9 +220,9 @@ public class GameLogic : MonoBehaviour
                 highscore = score;
                 highscoreText.text = highscore.ToString();
                 ScorePopUpTextSet(true, "NEW HIGH SCORE!");
+                playGamesServicesManager.postLeaderboardscore(score);
             }
 
-            //playGameServices.AddScoreToLeaderboard(highscore);
          
             playedAudio = true;
 
