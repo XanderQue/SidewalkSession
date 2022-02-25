@@ -150,11 +150,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac06e9ab7b4222e4786346ef2ffd5f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highscorePopup: {fileID: 0}
   playerPrefsLogic: {fileID: 1446225792}
   startMenu: {fileID: 738669932}
   signin: {fileID: 944770055}
   signinText: {fileID: 406215638}
   showLeaderboards: {fileID: 484600305}
+  showAchievements: {fileID: 6219021245262693513}
+  thankYou_Acheive: CgkIr6rUlLIVEAIQDQ
+  shuvit_Acheive: CgkIr6rUlLIVEAIQAw
+  x100_Shuvits_Acheive: CgkIr6rUlLIVEAIQDA
 --- !u!4 &336051895
 Transform:
   m_ObjectHideFlags: 0
@@ -593,6 +598,7 @@ MonoBehaviour:
   playerLivesLogic: {fileID: 1446225791}
   gameLogic: {fileID: 0}
   startScreenLogic: {fileID: 1446225787}
+  playGames_Manager: {fileID: 0}
 --- !u!1 &1540609004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,6 +1096,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6219021245262693500}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6219021245262693513 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6790848118255894090, guid: 9ca100cf1aa235e428bfb27770bfe1e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6219021245262693500}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9097109527943913290
 PrefabInstance:
   m_ObjectHideFlags: 0

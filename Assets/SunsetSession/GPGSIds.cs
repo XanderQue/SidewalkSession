@@ -25,8 +25,10 @@ namespace SunsetSession
 {
 public static class GPGSIds
 {
+        public const string achievement_thank_you = "CgkIr6rUlLIVEAIQDQ"; // <GPGSID>
+        public const string achievement_shuvit = "CgkIr6rUlLIVEAIQAw"; // <GPGSID>
+        public const string achievement_100x_shuvits = "CgkIr6rUlLIVEAIQDA"; // <GPGSID>
         public const string leaderboard_top_high_scores = "CgkIr6rUlLIVEAIQCw"; // <GPGSID>
-        public const string achievement_thank_you = "CgkIr6rUlLIVEAIQAw"; // <GPGSID>
 
 }
 }

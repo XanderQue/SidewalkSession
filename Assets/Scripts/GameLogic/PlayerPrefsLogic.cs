@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SocialPlatforms;
 
 public class PlayerPrefsLogic : MonoBehaviour
 {
@@ -710,4 +710,6 @@ public class PlayerPrefsLogic : MonoBehaviour
         }
         PlayerPrefs.Save();
     }
+ 
+
 }

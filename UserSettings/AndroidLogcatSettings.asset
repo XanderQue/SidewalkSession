@@ -3,40 +3,16 @@
     "m_SelectedPackage": {
         "deviceId": "R5CN70ZN3DM",
         "name": "com.AlfredQuezada.SidewalkSession",
-        "processId": 18525,
+        "processId": 14920,
         "exited": false
     },
     "m_SelectedPriority": 0,
     "m_KnownPackagesForSerialization": [
         {
             "deviceId": "R5CN70ZN3DM",
-            "name": "com.AlfredQuezada.SidewalkSession",
-            "processId": 17540,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CN70ZN3DM",
-            "name": "com.AlfredQuezada.SidewalkSession",
-            "processId": 19624,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CN70ZN3DM",
             "name": "com.sec.android.app.launcher",
             "processId": 10049,
             "exited": false
-        },
-        {
-            "deviceId": "R5CN70ZN3DM",
-            "name": "com.AlfredQuezada.SidewalkSession",
-            "processId": 20782,
-            "exited": true
-        },
-        {
-            "deviceId": "R5CN70ZN3DM",
-            "name": "com.AlfredQuezada.SidewalkSession",
-            "processId": 26872,
-            "exited": true
         },
         {
             "deviceId": "R5CN70ZN3DM",
@@ -48,18 +24,30 @@
             "deviceId": "R5CN70ZN3DM",
             "name": "com.AlfredQuezada.SidewalkSession",
             "processId": 3667,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R5CN70ZN3DM",
             "name": "com.AlfredQuezada.SidewalkSession",
             "processId": 5538,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R5CN70ZN3DM",
             "name": "com.AlfredQuezada.SidewalkSession",
             "processId": 18525,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CN70ZN3DM",
+            "name": "com.AlfredQuezada.SidewalkSession",
+            "processId": 12460,
+            "exited": true
+        },
+        {
+            "deviceId": "R5CN70ZN3DM",
+            "name": "com.AlfredQuezada.SidewalkSession",
+            "processId": 14920,
             "exited": false
         }
     ],
@@ -113,7 +101,7 @@
         "MemoryGroup": 2,
         "Behavior": 0
     },
-    "m_Filter": "Score",
+    "m_Filter": "",
     "m_FilterIsRegularExpression": false,
     "m_SymbolPaths": []
 }

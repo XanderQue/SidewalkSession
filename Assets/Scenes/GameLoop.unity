@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -214,6 +214,10 @@ MonoBehaviour:
   signin: {fileID: 2236285943027435928}
   signinText: {fileID: 2236285943027435927}
   showLeaderboards: {fileID: 2236285943027435929}
+  showAchievements: {fileID: 7224525694365940110}
+  thankYou_Acheive: CgkIr6rUlLIVEAIQAw
+  shuvit_Acheive: CgkIr6rUlLIVEAIQAw
+  x100_Shuvits_Acheive: CgkIr6rUlLIVEAIQDA
 --- !u!4 &29479259
 Transform:
   m_ObjectHideFlags: 0
@@ -246,6 +250,10 @@ MonoBehaviour:
   signin: {fileID: 7224525694365940108}
   signinText: {fileID: 7224525694365940107}
   showLeaderboards: {fileID: 7224525694365940109}
+  showAchievements: {fileID: 2236285943027435930}
+  thankYou_Acheive: CgkIr6rUlLIVEAIQAw
+  shuvit_Acheive: CgkIr6rUlLIVEAIQAw
+  x100_Shuvits_Acheive: CgkIr6rUlLIVEAIQDA
 --- !u!114 &58515995 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4216870161889496948, guid: f1bac284312081745a3212975fd81b99,
@@ -1205,6 +1213,7 @@ MonoBehaviour:
   playerLivesLogic: {fileID: 261780449}
   gameLogic: {fileID: 0}
   startScreenLogic: {fileID: 0}
+  playGames_Manager: {fileID: 0}
 --- !u!114 &261780448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3525,6 +3534,11 @@ PrefabInstance:
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1007233650704652629, guid: ed45e972b61936948bb12279c6bb8105,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 30.999985
+      objectReference: {fileID: 0}
     - target: {fileID: 2171437535712562897, guid: ed45e972b61936948bb12279c6bb8105,
         type: 3}
       propertyPath: m_Text
@@ -3665,6 +3679,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 356.7
       objectReference: {fileID: 0}
+    - target: {fileID: 3491845997998899867, guid: ed45e972b61936948bb12279c6bb8105,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 65.90001
+      objectReference: {fileID: 0}
     - target: {fileID: 4585011831820390319, guid: ed45e972b61936948bb12279c6bb8105,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -3704,6 +3723,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016847757037109062, guid: ed45e972b61936948bb12279c6bb8105,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 65.90001
       objectReference: {fileID: 0}
     - target: {fileID: 6069465359323703157, guid: ed45e972b61936948bb12279c6bb8105,
         type: 3}
@@ -3880,6 +3904,18 @@ MonoBehaviour:
 --- !u!114 &2236285943027435929 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4663286170985068201, guid: ed45e972b61936948bb12279c6bb8105,
+    type: 3}
+  m_PrefabInstance: {fileID: 2236285943027435916}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2236285943027435930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4464977136900632950, guid: ed45e972b61936948bb12279c6bb8105,
     type: 3}
   m_PrefabInstance: {fileID: 2236285943027435916}
   m_PrefabAsset: {fileID: 0}
@@ -4183,6 +4219,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1633624667785655164, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5031638855931889096, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 5903562885046054863, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
         type: 3}
       propertyPath: m_Enabled
@@ -4293,6 +4339,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9126187773865559001, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae5075b0a02ac3c4b903f9d0ad3c996c, type: 3}
 --- !u!223 &7224525694365940105 stripped
@@ -4340,6 +4391,18 @@ MonoBehaviour:
 --- !u!114 &7224525694365940109 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4603768440219253816, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7224525694365940104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7224525694365940110 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4229514384073376434, guid: ae5075b0a02ac3c4b903f9d0ad3c996c,
     type: 3}
   m_PrefabInstance: {fileID: 7224525694365940104}
   m_PrefabAsset: {fileID: 0}

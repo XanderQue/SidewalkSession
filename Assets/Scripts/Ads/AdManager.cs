@@ -13,6 +13,8 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
     public PlayerLives playerLivesLogic;
     public GameLogic gameLogic;
     public StartScreenLogic startScreenLogic;
+
+    public PGS_Manager playGames_Manager;
     // Start is called before the first frame update
     void Start()
     {
@@ -74,6 +76,8 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
             if (placementId == "Rewarded_Android" && showResult == ShowResult.Finished)
             {
                 playerPrefsLogic.PlayedRewardedAdJustNow();
+                playGames_Manager.UnlockAchievement(playGames_Manager.thankYou_Acheive);
+                
             }
             if (placementId == "Interstitial_Android")
             {
@@ -89,6 +93,7 @@ public class AdManager : MonoBehaviour, IUnityAdsListener
 
             if (placementId == "Rewarded_Android" && showResult == ShowResult.Finished)
             {
+                playGames_Manager.UnlockAchievement(playGames_Manager.thankYou_Acheive);
                 playerPrefsLogic.PlayedRewardedAdJustNow();
                 playerLivesLogic.SetMaxLives();
                 startScreenLogic.SetRewardBttnNoOpt();

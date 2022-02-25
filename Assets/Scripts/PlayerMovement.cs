@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private PlayerActionControls playerActionControls;
+    private PGS_Manager playGameServices_Manager;
     //Editor Game object links
     public Rigidbody2D rigBody;
     public BoxCollider2D groundCheckCollider;
@@ -92,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Start_SetRespawnPosition();
         playerActionControls = new PlayerActionControls();
+        playGameServices_Manager = FindObjectOfType<PGS_Manager>();
     }
 
     void Start_SetRespawnPosition()
@@ -141,7 +143,11 @@ public class PlayerMovement : MonoBehaviour
         PlayLandAudio();
 
         trickPoints = Mathf.RoundToInt(baseTrickPoints *(1+(shuvCount*.5f)));
-
+        if (alive && shuvCount > 0 && playGameServices_Manager!=null)
+        {
+            playGameServices_Manager.UnlockAchievement(playGameServices_Manager.shuvit_Acheive);
+            playGameServices_Manager.IncrementAchievement(playGameServices_Manager.x100_Shuvits_Acheive, 1);
+        }
         gameLogic.score += trickPoints;
 
         gameLogic.ScorePopUpTextSet(true, Mathf.RoundToInt(trickPoints).ToString());

@@ -16,16 +16,21 @@ public class PGS_Manager : MonoBehaviour
     public Button signin;
     public Text signinText;
     public Button showLeaderboards;
+    public Button showAchievements;
 
     private IScore leaderboardScore = null;
     private string leaderboardID = "CgkIr6rUlLIVEAIQCw";
+
+    public string thankYou_Acheive = "CgkIr6rUlLIVEAIQDQ";
+    public string shuvit_Acheive = "CgkIr6rUlLIVEAIQAw";
+    public string x100_Shuvits_Acheive = "CgkIr6rUlLIVEAIQDA";
 
     void Start()
     {
 
         signin.onClick.AddListener(() => SignIn());
         showLeaderboards.onClick.AddListener(() => ShowLeaderboard());
-
+        showAchievements.onClick.AddListener(() => ShowAchievements());
         if (platform == null)
         {
             PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().Build();
@@ -84,6 +89,13 @@ public class PGS_Manager : MonoBehaviour
             Social.ShowLeaderboardUI();
         }
     }
+    public void ShowAchievements()
+    {
+        if (Social.localUser.authenticated)
+        {
+            Social.ShowAchievementsUI();
+        }
+    }
     
     public void SignIn()
     {
@@ -126,6 +138,7 @@ public class PGS_Manager : MonoBehaviour
         signinText.text = "Sign In";
         signin.enabled = true;
         showLeaderboards.enabled = false;
+        showAchievements.enabled = false;
         
     }
     private void SetSignedInUI()
@@ -134,6 +147,7 @@ public class PGS_Manager : MonoBehaviour
         signinText.text = "Sign Out";
         signin.enabled = true;
         showLeaderboards.enabled = true;
+        showAchievements.enabled = true;
     }
 
     public void postLeaderboardscore(int newScore)
@@ -192,6 +206,25 @@ public class PGS_Manager : MonoBehaviour
                 }
 
             });
+        }
+    }
+
+
+    public void UnlockAchievement(string achevie_ID)
+    {
+        if (Social.localUser.authenticated)
+        {
+            Social.ReportProgress(achevie_ID, 100.0f, (bool success) => {
+            });
+        }
+    }
+    public void IncrementAchievement(string achevie_ID, int incrementalValue)
+    {
+        if (Social.localUser.authenticated)
+        {
+            PlayGamesPlatform.Instance.IncrementAchievement(
+             achevie_ID, incrementalValue, (bool success) => {
+        });
         }
     }
 
